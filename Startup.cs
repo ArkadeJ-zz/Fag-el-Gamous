@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Fag_el_Gamous.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Fag_el_Gamous
 {
@@ -32,6 +35,15 @@ namespace Fag_el_Gamous
             //    //old sqlserver
             //    //options.UseSqlServer(Configuration["ConnectionStrings:TourConnection"]);
             //});
+
+             services.AddDbContext<IdentityContext>(opts =>
+                opts.UseNpgsql(Configuration[
+                    "ConnectionStrings:IdentityConnection"]));
+             services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<IdentityContext>();
+
+
+
 
 
         }
