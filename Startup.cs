@@ -26,7 +26,7 @@ namespace Fag_el_Gamous
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            
 
             //services.AddDbContext<TourDbContext>(options =>
             //{
@@ -36,15 +36,30 @@ namespace Fag_el_Gamous
             //    //options.UseSqlServer(Configuration["ConnectionStrings:TourConnection"]);
             //});
 
-             services.AddDbContext<IdentityContext>(opts =>
-                opts.UseNpgsql(Configuration[
-                    "ConnectionStrings:IdentityConnection"]));
-             services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<IdentityContext>();
+             //services.AddDbContext<IdentityContext>(opts =>
+             //   opts.UseNpgsql(Configuration[
+             //       "ConnectionStrings:IdentityConnection"]));
+             //services.AddIdentity<IdentityUser, IdentityRole>()
+             //   .AddEntityFrameworkStores<IdentityContext>();
 
 
+            services.AddControllersWithViews();
+            services.AddRazorPages();
+
+            //services.AddAuthentication()
+            //    .AddGoogle(options =>
+            //    {
+            //        IConfigurationSection googleAuthNSection =
+            //            Configuration.GetSection("Authentication:Google");
+
+            //        options.ClientId = googleAuthNSection["969084770289-r9nid6eqvo3oi0hppathovg4q5l6b9ec"];
+            //        options.ClientSecret = googleAuthNSection["JFrbWccqRn0UMOK9yboBd8yc"];
 
 
+            //        //https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-5.0&tabs=windows
+            //        //options.ClientId = googleAuthNSection["ClientId"];
+            //        //options.ClientSecret = googleAuthNSection["ClientSecret"];
+            //    });
 
         }
 
@@ -66,6 +81,7 @@ namespace Fag_el_Gamous
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -73,6 +89,7 @@ namespace Fag_el_Gamous
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
