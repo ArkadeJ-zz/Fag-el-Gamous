@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Fag_el_Gamous.Models;
+using Fag_el_Gamous.Models.ViewModels;
 
 namespace Fag_el_Gamous
 {
@@ -19,9 +20,42 @@ namespace Fag_el_Gamous
         }
 
         // GET: MasterBurial2
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? burialId, int pageNum = 0)
         {
-            return View(await _context.MasterBurial2.ToListAsync());
+            int pageSize = 50;
+
+            int skip = 0;
+
+            if (pageNum - 1 < 0)
+            { skip = 0; }
+            else
+            {
+                skip = (pageNum - 1) * pageSize;
+            }
+
+            return View(new PaginationViewModel
+            {
+                //Carbons = ((IQueryable<Carbon2>)_context.Carbon2.Include(c => c.Burial).ToListAsync()),
+
+
+
+                Burials = (_context.MasterBurial2
+                    .Where(c => c.BurialId == burialId || burialId == null)
+                    .Skip(skip)
+                    .Take(pageSize)
+                    .ToList()),
+
+                PageNumberingInfo = new PageNumberingInfo
+                {
+                    NumItemsPerPage = pageSize,
+                    CurrentPage = pageNum,
+
+                    TotalNumItems = (burialId == null ? _context.MasterBurial2.Count() :
+                        _context.MasterBurial2.Where(x => x.BurialId == burialId).Count())
+                }
+            });
+
+            //return View(await _context.MasterBurial2.ToListAsync());
         }
 
         // GET: MasterBurial2/Details/5

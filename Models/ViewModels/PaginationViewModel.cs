@@ -13,6 +13,7 @@ namespace Fag_el_Gamous.Models.ViewModels
 
         public IEnumerable<Fag_el_Gamous.Models.Carbon2> Carbons { get; set; }
 
+        public IEnumerable<Fag_el_Gamous.Models.MasterBurial2> Burials { get; set; }
 
     }
 }
