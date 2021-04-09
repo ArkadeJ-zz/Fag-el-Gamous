@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Fag_el_Gamous.Models;
+using Fag_el_Gamous.Models.ViewModels;
 
 namespace Fag_el_Gamous.Controllers
 {
@@ -19,10 +20,41 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // GET: Samples2
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? sampleId, int pageNum = 0)
         {
-            var waterbuffaloContext = _context.Samples2.Include(s => s.Burial);
-            return View(await waterbuffaloContext.ToListAsync());
+            int pageSize = 100;
+
+            int skip = 0;
+
+            if (pageNum - 1 < 0)
+            { skip = 0; }
+            else
+            {
+                skip = (pageNum - 1) * pageSize;
+            }
+
+            return View(new PaginationViewModel
+            {
+
+                Samples = (_context.Samples2
+                    .Where(c => c.SampleId == sampleId || sampleId == null)
+                    .Skip(skip)
+                    .Take(pageSize)
+                    .ToList()),
+
+                PageNumberingInfo = new PageNumberingInfo
+                {
+                    NumItemsPerPage = pageSize,
+                    CurrentPage = pageNum,
+
+                    TotalNumItems = (sampleId == null ? _context.Samples2.Count() :
+                        _context.Samples2.Where(x => x.SampleId == sampleId).Count())
+                }
+            });
+
+
+            //var waterbuffaloContext = _context.Samples2.Include(s => s.Burial);
+            //return View(await waterbuffaloContext.ToListAsync());
         }
 
         // GET: Samples2/Details/5

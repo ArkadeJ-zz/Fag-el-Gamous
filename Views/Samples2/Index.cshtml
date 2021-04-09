@@ -1,4 +1,7 @@
-﻿@model IEnumerable<Fag_el_Gamous.Models.Samples2>
+﻿@*@model IEnumerable<Fag_el_Gamous.Models.Samples2>*@
+@using Fag_el_Gamous.Models.ViewModels
+
+@model PaginationViewModel
 
 @{
     ViewData["Title"] = "Detailed Sample Data";
@@ -8,6 +11,14 @@
 
 <h1>Index</h1>
 
+<div page-info="@Model.PageNumberingInfo"
+     page-classes-enabled="true"
+     page-class="btn"
+     page-class-normal="btn-outline-dark"
+     page-class-selected="btn-primary"
+     class="btn-group pull-right m-1">
+</div>
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -15,70 +26,70 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.LocConcat)
+                LocConcat
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RackNum)
+                RackNum
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BagNum)
+                BagNum
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LowNs)
+                LowNs
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HighNs)
+                HighNs
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NS)
+                NS
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LowEw)
+                LowEw
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HighEw)
+                HighEw
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EW)
+                EW
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Area)
+                Area
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BurialNum)
+                BurialNum
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SubBurialNum)
+                SubBurialNum
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ClusterNum)
+                ClusterNum
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateDay)
+                DateDay
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateMonth)
+                DateMonth
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateYear)
+                DateYear
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PreviouslySampled)
+                PreviouslySampled
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Notes)
+                Notes
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Initials)
+                Initials
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Burial)
+                Burial
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Samples) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.LocConcat)
@@ -149,3 +160,11 @@
 }
     </tbody>
 </table>
+
+<div page-info="@Model.PageNumberingInfo"
+     page-classes-enabled="true"
+     page-class="btn"
+     page-class-normal="btn-outline-dark"
+     page-class-selected="btn-primary"
+     class="btn-group pull-right m-1">
+</div>
