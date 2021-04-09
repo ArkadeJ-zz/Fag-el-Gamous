@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Fag_el_Gamous.Models;
+using Fag_el_Gamous.Models.ViewModels;
 
 namespace Fag_el_Gamous.Controllers
 {
@@ -19,10 +20,45 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // GET: Carbon2
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? carbonId, int pageNum = 0)
         {
-            var waterbuffaloContext = _context.Carbon2.Include(c => c.Burial);
-            return View(await waterbuffaloContext.ToListAsync());
+            int pageSize = 10;
+
+            int skip = 0;
+
+            if (pageNum - 1 < 0)
+            { skip = 0; }
+            else
+            {
+                skip = (pageNum - 1) * pageSize;
+            }
+
+            return View(new PaginationViewModel
+            {
+                //Carbons = ((IQueryable<Carbon2>)_context.Carbon2.Include(c => c.Burial).ToListAsync()),
+
+                
+
+            Carbons = (_context.Carbon2
+                    .Where(c => c.CarbonId == carbonId || carbonId == null)
+                    .Skip(skip)
+                    .Take(pageSize)
+                    .ToList()),
+
+                PageNumberingInfo = new PageNumberingInfo
+                {
+                    NumItemsPerPage = pageSize,
+                    CurrentPage = pageNum,
+
+                    TotalNumItems = (carbonId == null ? _context.Carbon2.Count() :
+                        _context.Carbon2.Where(x => x.CarbonId == carbonId).Count())
+                }
+            });
+
+
+
+            //var waterbuffaloContext = _context.Carbon2.Include(c => c.Burial);
+            //return View(await waterbuffaloContext.ToListAsync());
         }
 
         // GET: Carbon2/Details/5

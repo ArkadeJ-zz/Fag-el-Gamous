@@ -1,4 +1,8 @@
-﻿@model IEnumerable<Fag_el_Gamous.Models.Carbon2>
+﻿@*@model IEnumerable<Fag_el_Gamous.Models.Carbon2>*@
+@using Fag_el_Gamous.Models.ViewModels
+
+@model PaginationViewModel
+
 
 @{
     ViewData["Title"] = "Carbon Dating Data";
@@ -15,91 +19,91 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.LocConcat)
+                LocConcat
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RackNum)
+                RackNum
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LocationNs)
+                LocationNs
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ns)
+                Ns
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LocationEw)
+                LocationEw
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ew)
+                Ew
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BurialSubplot)
+                BurialSubplot
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Area)
+                Area
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BurialNum)
+                BurialNum
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RackAlt)
+                RackAlt
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TubeNum)
+                TubeNum
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                Description
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SizeMl)
+                SizeMl
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Foci)
+                Foci
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.C14Sample2017)
+                C14Sample2017
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Location)
+                Location
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Questions)
+                Questions
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Num)
+                Num
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Conventional14cAgeBp)
+                Conventional14cAgeBp
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CCalendarDate)
+                CCalendarDate
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Calibrated95PercentCalendarDateMax)
+                Calibrated95PercentCalendarDateMax
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Calibrated95PercentCalendarDateMin)
+                Calibrated95PercentCalendarDateMin
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Calibrated95PercentCalendarDateSpan)
+                Calibrated95PercentCalendarDateSpan
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Calibrated95PercentCalendarDateAvg)
+                Calibrated95PercentCalendarDateAvg
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Category)
+                Category
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Notes)
+                Notes
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Burial)
+                Burial
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Carbons) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.LocConcat)
@@ -191,3 +195,11 @@
 }
     </tbody>
 </table>
+
+<div page-info="@Model.PageNumberingInfo"
+     page-classes-enabled="true"
+     page-class="btn"
+     page-class-normal="btn-outline-dark"
+     page-class-selected="btn-primary"
+     class="btn-group pull-right m-1">
+</div>
