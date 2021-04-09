@@ -51,18 +51,54 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
 
-
-
-                    @*<li class="nav-item">
-                        <a class="nav-link" asp-controller="Home" asp-action="Tours">
-                            <i class="material-icons">date_range</i>Sign Up
+               
+                     
+                        
+                    @* Header - just extends drop down menu *@
+                    <li class="dropdown nav-item">
+                      <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                        <i class="material-icons">apps</i> Data
+                      </a>
+                        @* Buttons of drop down menu with links *@
+                      <div class="dropdown-menu dropdown-with-icons">
+                        <a asp-controller="MasterBurial2" asp-action="Index" class="dropdown-item">
+                          <i class="material-icons">functions</i> All Burial Data
                         </a>
+                        <a href="html/datatransfer.html" class="dropdown-item">
+                          <i class="material-icons">compare_arrows</i> Biological Samples
+                        </a>
+                        <a href="html/setup.html" class="dropdown-item">
+                          <i class="material-icons">phonelink_setup</i> C14 Dating
+                        </a>
+
+                        @*<a href="html/unlock.html" class="dropdown-item">
+                          <i class="material-icons">lock_open</i> Pay off and Unlock a Device
+                        </a>
+                        <a href="html/port.html" class="dropdown-item">
+                          <i class="material-icons">phone_callback</i> Transfer/Port a Number Between Carriers
+                        </a>
+                        <a href="html/todo.html" class="dropdown-item">
+                          <i class="material-icons">library_add_check</i> To Do List Maker
+                        </a>*@
+
+                      </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Home" asp-action="ScheduledTours">
-                            <i class="material-icons">date_range</i>Scheduled Tours
-                        </a>
-                    </li>*@
+
+                    <li class="container" style="font-weight:bold; background-color:white; border-radius:5px">
+                        <partial name="_LoginPartial" />
+                     </li>
+
+                  
+                    @*<li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Tours">
+                                <i class="material-icons">date_range</i>Sign Up
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="ScheduledTours">
+                                <i class="material-icons">date_range</i>Scheduled Tours
+                            </a>
+                        </li>
 
 
 
@@ -166,7 +202,7 @@
     <script src="~/js/grader.js"></script>
     <!--added after adding jquery package-->
     <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
-
+    @RenderSection("Scripts", required: false)
 
 
     <script>

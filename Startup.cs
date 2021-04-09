@@ -8,9 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Fag_el_Gamous.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace Fag_el_Gamous
 {
@@ -27,6 +24,8 @@ namespace Fag_el_Gamous
         public void ConfigureServices(IServiceCollection services)
         {
 
+
+            services.AddControllersWithViews();
 
             //services.AddDbContext<TourDbContext>(options =>
             //{
@@ -50,21 +49,6 @@ namespace Fag_el_Gamous
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            //services.AddAuthentication()
-            //    .AddGoogle(options =>
-            //    {
-            //        IConfigurationSection googleAuthNSection =
-            //            Configuration.GetSection("Authentication:Google");
-
-            //        options.ClientId = googleAuthNSection["969084770289-r9nid6eqvo3oi0hppathovg4q5l6b9ec"];
-            //        options.ClientSecret = googleAuthNSection["JFrbWccqRn0UMOK9yboBd8yc"];
-
-
-            //        //https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-5.0&tabs=windows
-            //        //options.ClientId = googleAuthNSection["ClientId"];
-            //        //options.ClientSecret = googleAuthNSection["ClientSecret"];
-            //    });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,7 +69,6 @@ namespace Fag_el_Gamous
 
             app.UseRouting();
 
-            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -93,7 +76,6 @@ namespace Fag_el_Gamous
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
             });
         }
     }
