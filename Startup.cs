@@ -1,6 +1,8 @@
+using Fag_el_Gamous.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -8,9 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Fag_el_Gamous.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace Fag_el_Gamous
 {
@@ -28,6 +27,8 @@ namespace Fag_el_Gamous
         {
 
 
+            services.AddControllersWithViews();
+
             //services.AddDbContext<TourDbContext>(options =>
             //{
             //    options.UseSqlite(Configuration["ConnectionStrings:TourConnection"]);
@@ -41,10 +42,6 @@ namespace Fag_el_Gamous
             //       "ConnectionStrings:IdentityConnection"]));
             //services.AddIdentity<IdentityUser, IdentityRole>()
             //   .AddEntityFrameworkStores<IdentityContext>();
-
-            //services.AddScoped<IMummyRepository, EFMummyRepository>();
-
-
             services.AddDbContext<waterbuffaloContext>(options =>
             {
                 options.UseNpgsql(Configuration["ConnectionStrings:postgresConnection"]);
@@ -53,21 +50,6 @@ namespace Fag_el_Gamous
 
             services.AddControllersWithViews();
             services.AddRazorPages();
-
-            //services.AddAuthentication()
-            //    .AddGoogle(options =>
-            //    {
-            //        IConfigurationSection googleAuthNSection =
-            //            Configuration.GetSection("Authentication:Google");
-
-            //        options.ClientId = googleAuthNSection["969084770289-r9nid6eqvo3oi0hppathovg4q5l6b9ec"];
-            //        options.ClientSecret = googleAuthNSection["JFrbWccqRn0UMOK9yboBd8yc"];
-
-
-            //        //https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-5.0&tabs=windows
-            //        //options.ClientId = googleAuthNSection["ClientId"];
-            //        //options.ClientSecret = googleAuthNSection["ClientSecret"];
-            //    });
 
         }
 
@@ -89,7 +71,6 @@ namespace Fag_el_Gamous
 
             app.UseRouting();
 
-            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -97,18 +78,7 @@ namespace Fag_el_Gamous
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
-
-
-                //endpoints.MapControllerRoute(
-                //    name: "MasterBurial2",
-                //    pattern:"{controller=MasterBurial2}/{action=Index}");
-                    
-                    
-
             });
-
-
         }
     }
 }
