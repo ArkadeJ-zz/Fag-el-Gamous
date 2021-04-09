@@ -19,9 +19,16 @@ namespace Fag_el_Gamous.Models
         {
         }
 
-        public virtual DbSet<Carbon> Carbon { get; set; }
-        public virtual DbSet<MasterBurial> MasterBurial { get; set; }
-        public virtual DbSet<Samples> Samples { get; set; }
+        public virtual DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
+        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
+        public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
+        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<Carbon2> Carbon2 { get; set; }
+        public virtual DbSet<MasterBurial2> MasterBurial2 { get; set; }
+        public virtual DbSet<Samples2> Samples2 { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -34,19 +41,112 @@ namespace Fag_el_Gamous.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Carbon>(entity =>
+            modelBuilder.Entity<AspNetRoleClaims>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasIndex(e => e.RoleId);
 
-                entity.ToTable("carbon");
+                entity.Property(e => e.RoleId).IsRequired();
+
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.AspNetRoleClaims)
+                    .HasForeignKey(d => d.RoleId);
+            });
+
+            modelBuilder.Entity<AspNetRoles>(entity =>
+            {
+                entity.HasIndex(e => e.NormalizedName)
+                    .HasName("RoleNameIndex")
+                    .IsUnique();
+
+                entity.Property(e => e.Name).HasMaxLength(256);
+
+                entity.Property(e => e.NormalizedName).HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<AspNetUserClaims>(entity =>
+            {
+                entity.HasIndex(e => e.UserId);
+
+                entity.Property(e => e.UserId).IsRequired();
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.AspNetUserClaims)
+                    .HasForeignKey(d => d.UserId);
+            });
+
+            modelBuilder.Entity<AspNetUserLogins>(entity =>
+            {
+                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
+
+                entity.HasIndex(e => e.UserId);
+
+                entity.Property(e => e.UserId).IsRequired();
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.AspNetUserLogins)
+                    .HasForeignKey(d => d.UserId);
+            });
+
+            modelBuilder.Entity<AspNetUserRoles>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.RoleId });
+
+                entity.HasIndex(e => e.RoleId);
+
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.AspNetUserRoles)
+                    .HasForeignKey(d => d.RoleId);
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.AspNetUserRoles)
+                    .HasForeignKey(d => d.UserId);
+            });
+
+            modelBuilder.Entity<AspNetUserTokens>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.AspNetUserTokens)
+                    .HasForeignKey(d => d.UserId);
+            });
+
+            modelBuilder.Entity<AspNetUsers>(entity =>
+            {
+                entity.HasIndex(e => e.NormalizedEmail)
+                    .HasName("EmailIndex");
+
+                entity.HasIndex(e => e.NormalizedUserName)
+                    .HasName("UserNameIndex")
+                    .IsUnique();
+
+                entity.Property(e => e.Email).HasMaxLength(256);
+
+                entity.Property(e => e.LockoutEnd).HasColumnType("timestamp with time zone");
+
+                entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
+
+                entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
+
+                entity.Property(e => e.UserName).HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<Carbon2>(entity =>
+            {
+                entity.HasKey(e => e.CarbonId)
+                    .HasName("carbon2_pkey");
+
+                entity.ToTable("carbon2");
+
+                entity.Property(e => e.CarbonId)
+                    .HasColumnName("carbon_id")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.Area)
                     .HasColumnName("area")
                     .HasColumnType("character varying");
 
-                entity.Property(e => e.BurialId)
-                    .HasColumnName("burial_id")
-                    .HasColumnType("character varying");
+                entity.Property(e => e.BurialId).HasColumnName("burial_id");
 
                 entity.Property(e => e.BurialNum)
                     .HasColumnName("burial_num")
@@ -78,10 +178,6 @@ namespace Fag_el_Gamous.Models
 
                 entity.Property(e => e.Calibrated95PercentCalendarDateSpan)
                     .HasColumnName("calibrated_95_percent_calendar_date_span")
-                    .HasColumnType("character varying");
-
-                entity.Property(e => e.CarbonId)
-                    .HasColumnName("carbon_id")
                     .HasColumnType("character varying");
 
                 entity.Property(e => e.Category)
@@ -151,13 +247,22 @@ namespace Fag_el_Gamous.Models
                 entity.Property(e => e.TubeNum)
                     .HasColumnName("tube_num")
                     .HasColumnType("character varying");
+
+                entity.HasOne(d => d.Burial)
+                    .WithMany(p => p.Carbon2)
+                    .HasForeignKey(d => d.BurialId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("burial_id");
             });
 
-            modelBuilder.Entity<MasterBurial>(entity =>
+            modelBuilder.Entity<MasterBurial2>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.BurialId)
+                    .HasName("master_burial2_pkey");
 
-                entity.ToTable("master_burial");
+                entity.ToTable("master_burial2");
+
+                entity.Property(e => e.BurialId).HasColumnName("burial_id");
 
                 entity.Property(e => e.AgeCodeSingle)
                     .HasColumnName("age_code_single")
@@ -222,10 +327,6 @@ namespace Fag_el_Gamous.Models
                 entity.Property(e => e.BurialDirection)
                     .HasColumnName("burial_direction")
                     .HasColumnType("character varying");
-
-                entity.Property(e => e.BurialId)
-                    .HasColumnName("burial_id")
-                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.BurialLocationEw)
                     .HasColumnName("burial_location_ew")
@@ -314,14 +415,6 @@ namespace Fag_el_Gamous.Models
                     .HasColumnType("character varying");
 
                 entity.Property(e => e.DorsalPitting).HasColumnName("dorsal_pitting");
-
-                entity.Property(e => e.EastToFeet)
-                    .HasColumnName("east_to_feet")
-                    .HasColumnType("character varying");
-
-                entity.Property(e => e.EastToHead)
-                    .HasColumnName("east_to_head")
-                    .HasColumnType("character varying");
 
                 entity.Property(e => e.EpiphysealUnion)
                     .HasColumnName("epiphyseal_union")
@@ -635,6 +728,14 @@ namespace Fag_el_Gamous.Models
 
                 entity.Property(e => e.VentralArc).HasColumnName("ventral_arc");
 
+                entity.Property(e => e.WestToFeet)
+                    .HasColumnName("west_to_feet")
+                    .HasColumnType("character varying");
+
+                entity.Property(e => e.WestToHead)
+                    .HasColumnName("west_to_head")
+                    .HasColumnType("character varying");
+
                 entity.Property(e => e.YearExcav)
                     .HasColumnName("year_excav")
                     .HasColumnType("character varying");
@@ -648,35 +749,38 @@ namespace Fag_el_Gamous.Models
                 entity.Property(e => e.ZygomaticCrest).HasColumnName("zygomatic_crest");
             });
 
-            modelBuilder.Entity<Samples>(entity =>
+            modelBuilder.Entity<Samples2>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.SampleId)
+                    .HasName("samples2_pkey");
 
-                entity.ToTable("samples");
+                entity.ToTable("samples2");
+
+                entity.Property(e => e.SampleId)
+                    .HasColumnName("sample_id")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.Area)
                     .HasColumnName("area")
-                    .HasMaxLength(20);
+                    .HasColumnType("character varying");
 
                 entity.Property(e => e.BagNum).HasColumnName("bag_num");
 
-                entity.Property(e => e.BurialId)
-                    .HasColumnName("burial_id")
-                    .ValueGeneratedOnAdd();
+                entity.Property(e => e.BurialId).HasColumnName("burial_id");
 
-                entity.Property(e => e.BurialNum)
-                    .HasColumnName("burial_num")
-                    .HasColumnType("character varying");
+                entity.Property(e => e.BurialNum).HasColumnName("burial_num");
 
                 entity.Property(e => e.ClusterNum).HasColumnName("cluster_num");
 
-                entity.Property(e => e.DDate)
-                    .HasColumnName("d_date")
-                    .HasColumnType("character varying");
+                entity.Property(e => e.DateDay).HasColumnName("date_day");
+
+                entity.Property(e => e.DateMonth).HasColumnName("date_month");
+
+                entity.Property(e => e.DateYear).HasColumnName("date_year");
 
                 entity.Property(e => e.EW)
                     .HasColumnName("e_w")
-                    .HasMaxLength(10);
+                    .HasColumnType("character varying");
 
                 entity.Property(e => e.HighEw).HasColumnName("high_ew");
 
@@ -684,11 +788,11 @@ namespace Fag_el_Gamous.Models
 
                 entity.Property(e => e.Initials)
                     .HasColumnName("initials")
-                    .HasMaxLength(15);
+                    .HasColumnType("character varying");
 
                 entity.Property(e => e.LocConcat)
                     .HasColumnName("loc_concat")
-                    .HasMaxLength(50);
+                    .HasColumnType("character varying");
 
                 entity.Property(e => e.LowEw).HasColumnName("low_ew");
 
@@ -696,25 +800,25 @@ namespace Fag_el_Gamous.Models
 
                 entity.Property(e => e.NS)
                     .HasColumnName("n_s")
-                    .HasMaxLength(10);
+                    .HasColumnType("character varying");
 
-                entity.Property(e => e.Notes)
-                    .HasColumnName("notes")
-                    .HasMaxLength(1000);
+                entity.Property(e => e.Notes).HasColumnName("notes");
 
                 entity.Property(e => e.PreviouslySampled)
                     .HasColumnName("previously_sampled")
-                    .HasMaxLength(15);
+                    .HasColumnType("character varying");
 
                 entity.Property(e => e.RackNum).HasColumnName("rack_num");
 
-                entity.Property(e => e.SampleId)
-                    .HasColumnName("sample_id")
-                    .ValueGeneratedOnAdd();
-
                 entity.Property(e => e.SubBurialNum)
                     .HasColumnName("sub_burial_num")
-                    .HasMaxLength(10);
+                    .HasColumnType("character varying");
+
+                entity.HasOne(d => d.Burial)
+                    .WithMany(p => p.Samples2)
+                    .HasForeignKey(d => d.BurialId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("burial_id");
             });
 
             OnModelCreatingPartial(modelBuilder);
