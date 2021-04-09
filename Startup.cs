@@ -26,7 +26,7 @@ namespace Fag_el_Gamous
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
 
             //services.AddDbContext<TourDbContext>(options =>
             //{
@@ -36,11 +36,19 @@ namespace Fag_el_Gamous
             //    //options.UseSqlServer(Configuration["ConnectionStrings:TourConnection"]);
             //});
 
-             //services.AddDbContext<IdentityContext>(opts =>
-             //   opts.UseNpgsql(Configuration[
-             //       "ConnectionStrings:IdentityConnection"]));
-             //services.AddIdentity<IdentityUser, IdentityRole>()
-             //   .AddEntityFrameworkStores<IdentityContext>();
+            //services.AddDbContext<IdentityContext>(opts =>
+            //   opts.UseNpgsql(Configuration[
+            //       "ConnectionStrings:IdentityConnection"]));
+            //services.AddIdentity<IdentityUser, IdentityRole>()
+            //   .AddEntityFrameworkStores<IdentityContext>();
+
+            //services.AddScoped<IMummyRepository, EFMummyRepository>();
+
+
+            services.AddDbContext<waterbuffaloContext>(options =>
+            {
+                options.UseNpgsql(Configuration["ConnectionStrings:postgresConnection"]);
+            });
 
 
             services.AddControllersWithViews();
@@ -90,7 +98,17 @@ namespace Fag_el_Gamous
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+
+
+                //endpoints.MapControllerRoute(
+                //    name: "MasterBurial2",
+                //    pattern:"{controller=MasterBurial2}/{action=Index}");
+                    
+                    
+
             });
+
+
         }
     }
 }
