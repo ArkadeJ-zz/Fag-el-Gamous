@@ -1,0 +1,151 @@
+﻿@model IEnumerable<Fag_el_Gamous.Models.Samples2>
+
+@{
+    ViewData["Title"] = "Detailed Sample Data";
+    ViewBag.pageType = "profile-page";
+    ViewBag.Background = "/img/tent.jpg";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LocConcat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RackNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BagNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LowNs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HighNs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LowEw)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HighEw)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EW)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Area)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BurialNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubBurialNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClusterNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateDay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateMonth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PreviouslySampled)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Notes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Initials)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Burial)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocConcat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RackNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BagNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LowNs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HighNs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LowEw)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HighEw)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EW)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Area)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BurialNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubBurialNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClusterNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateDay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateMonth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PreviouslySampled)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Initials)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Burial.BurialId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SampleId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SampleId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SampleId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
