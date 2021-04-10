@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Fag_el_Gamous.Models;
 using Fag_el_Gamous.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Fag_el_Gamous.Models.Filtering;
 
 namespace Fag_el_Gamous
 {
@@ -22,11 +23,16 @@ namespace Fag_el_Gamous
 
         // GET: MasterBurial2
         
-        public async Task<IActionResult> Index(int? burialId, int pageNum = 0)
+        public async Task<IActionResult> Index(int? burialId, Filter? filter, int pageNum = 0)
         {
+            var filterLogic = new FilterLogic(_context);
+
+            var queryModel = filterLogic.GetMummies(filter);
+
             int pageSize = 50;
 
             int skip = 0;
+
 
             if (pageNum - 1 < 0)
             { skip = 0; }
@@ -41,8 +47,8 @@ namespace Fag_el_Gamous
 
 
 
-                Burials = (_context.MasterBurial2
-                    .Where(c => c.BurialId == burialId || burialId == null)
+                Burials = (queryModel
+                    //.Where(c => c.BurialId == burialId || burialId == null)
                     .Skip(skip)
                     .Take(pageSize)
                     .ToList()),
