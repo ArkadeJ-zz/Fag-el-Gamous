@@ -94,6 +94,11 @@ namespace Fag_el_Gamous
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute("LocConcat",
+                    "Location/{burialId}/{LocConcat}/{pagenum}",
+                    new { Controller = "MasterBurial2", action = "Index"}
+                    );
+
                 endpoints.MapControllerRoute(
                     "pageNum",
                     "Index/{pageNum}",
