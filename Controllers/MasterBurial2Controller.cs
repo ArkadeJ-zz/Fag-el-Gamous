@@ -23,7 +23,7 @@ namespace Fag_el_Gamous
 
         // GET: MasterBurial2
         
-        public async Task<IActionResult> Index(Filter filter, int? burialId, int pageNum = 0)
+        public async Task<IActionResult> Index(Filter filter, int? burialId, int pageNum = 1)
         {
             var filterLogic = new FilterLogic(_context);
 
@@ -50,6 +50,7 @@ namespace Fag_el_Gamous
                 Burials = (queryModel
                     //.Where(c => c.BurialId == burialId || burialId == null)
                     .Skip(skip)
+                    //.Skip((pageNum - 1) * pageSize)
                     .Take(pageSize)
                     .ToList()),
 
@@ -60,7 +61,9 @@ namespace Fag_el_Gamous
 
                     TotalNumItems = (burialId == null ? _context.MasterBurial2.Count() :
                         _context.MasterBurial2.Where(x => x.BurialId == burialId).Count())
-                }
+                },
+
+                UrlInfo = Request.QueryString.Value
             });
 
             //return View(await _context.MasterBurial2.ToListAsync());

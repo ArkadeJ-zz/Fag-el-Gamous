@@ -95,6 +95,12 @@ namespace Fag_el_Gamous
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    "pageNum",
+                    "Index/{pageNum}",
+                    new { Controller = "MasterBurial2", action = "Index" }
+                    );
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();

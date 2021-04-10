@@ -18,5 +18,7 @@ namespace Fag_el_Gamous.Models.ViewModels
 
         public Filter Filter { get; set; }
 
+        public string UrlInfo { get; set; }
+
     }
 }
