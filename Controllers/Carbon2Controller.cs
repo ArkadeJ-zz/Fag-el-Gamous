@@ -21,7 +21,7 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // GET: Carbon2
-        [Authorize]
+        
         public async Task<IActionResult> Index(int? carbonId, int pageNum = 0)
         {
             int pageSize = 10;
@@ -64,7 +64,7 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // GET: Carbon2/Details/5
-        [Authorize]
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

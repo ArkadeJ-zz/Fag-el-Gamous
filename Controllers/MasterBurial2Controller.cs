@@ -21,7 +21,7 @@ namespace Fag_el_Gamous
         }
 
         // GET: MasterBurial2
-        [Authorize]
+        
         public async Task<IActionResult> Index(int? burialId, int pageNum = 0)
         {
             int pageSize = 50;
@@ -61,7 +61,7 @@ namespace Fag_el_Gamous
         }
 
         // GET: MasterBurial2/Details/5
-        [Authorize]
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

@@ -21,7 +21,7 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // GET: Samples2
-        [Authorize]
+
         public async Task<IActionResult> Index(int? sampleId, int pageNum = 0)
         {
             int pageSize = 100;
@@ -60,7 +60,7 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // GET: Samples2/Details/5
-        [Authorize]
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
