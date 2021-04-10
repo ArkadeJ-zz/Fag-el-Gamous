@@ -7,13 +7,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Fag_el_Gamous.Models;
 using Fag_el_Gamous.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Fag_el_Gamous.Models.Filtering;
 
 namespace Fag_el_Gamous
 {
     public class MasterBurial2Controller : Controller
     {
         private readonly waterbuffaloContext _context;
-        private readonly MasterBurial2 _master;
 
         public MasterBurial2Controller(waterbuffaloContext context)
         {
@@ -21,11 +22,17 @@ namespace Fag_el_Gamous
         }
 
         // GET: MasterBurial2
-        public async Task<IActionResult> Index(int? burialId, int pageNum = 0, string id = null)
+        
+        public async Task<IActionResult> Index(Filter filter, int? burialId, int pageNum = 1)
         {
+            var filterLogic = new FilterLogic(_context);
+
+            var queryModel = filterLogic.GetMummies(filter);
+
             int pageSize = 50;
 
             int skip = 0;
+
 
             if (pageNum - 1 < 0)
             { skip = 0; }
@@ -34,53 +41,16 @@ namespace Fag_el_Gamous
                 skip = (pageNum - 1) * pageSize;
             }
 
-            var filters = new Filters(id);
-            ViewBag.Filters = filters;
-            ViewBag.SubPlot = _context.MasterBurial2.ToList();
-            ViewBag.Sex = _context.MasterBurial2.ToList();
-            ViewBag.HairColor = _context.MasterBurial2.ToList();
-            ViewBag.EstimateAge = _context.MasterBurial2.ToList();
-            ViewBag.HeadDirection = _context.MasterBurial2.ToList();
-
-            IQueryable<MasterBurial2> query = _context.MasterBurial2
-                .Include(t => t.BurialSubplot).Include(t => t.Sex)
-                .Include(t => t.HairColor).Include(t => t.EstimateAge)
-                .Include(t => t.HeadDirection);
-
-            if (filters.HasBurialSubPlot)
-            {
-                query = query.Where(t => t.BurialSubplot == filters.BurialSubPlot);
-            }
-
-            if (filters.HasSex)
-            {
-                query = query.Where(t => t.Sex == filters.Sex);
-            }
-
-            if (filters.HasHairColor)
-            {
-                query = query.Where(t => t.HairColor == filters.HairColor);
-            }
-
-            if (filters.HasEstimateAge)
-            {
-                query = query.Where(t => t.EstimateAge == filters.EstimateAge);
-            }
-
-            if (filters.HasHeadDirection)
-            {
-                query = query.Where(t => t.HeadDirection == filters.HeadDirection);
-            }
-
             return View(new PaginationViewModel
             {
                 //Carbons = ((IQueryable<Carbon2>)_context.Carbon2.Include(c => c.Burial).ToListAsync()),
 
 
 
-                Burials = (_context.MasterBurial2
-                    .Where(c => c.BurialId == burialId || burialId == null)
+                Burials = (queryModel
+                    //.Where(c => c.BurialId == burialId || burialId == null)
                     .Skip(skip)
+                    //.Skip((pageNum - 1) * pageSize)
                     .Take(pageSize)
                     .ToList()),
 
@@ -89,21 +59,18 @@ namespace Fag_el_Gamous
                     NumItemsPerPage = pageSize,
                     CurrentPage = pageNum,
 
-                    TotalNumItems = (burialId == null ? _context.MasterBurial2.Count() :
-                        _context.MasterBurial2.Where(x => x.BurialId == burialId).Count())
-                }
+                    TotalNumItems = (burialId == null ? queryModel.Count() :
+                        queryModel.Where(x => x.BurialId == burialId).Count())
+                },
+
+                UrlInfo = Request.QueryString.Value
             });
+
             //return View(await _context.MasterBurial2.ToListAsync());
         }
 
-        [HttpPost]
-        public IActionResult Filter(string[] filter)
-        {
-            string id = string.Join('-', filter);
-            return RedirectToAction("Index", new { ID = id });
-        }
-
         // GET: MasterBurial2/Details/5
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -122,6 +89,7 @@ namespace Fag_el_Gamous
         }
 
         // GET: MasterBurial2/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -144,6 +112,7 @@ namespace Fag_el_Gamous
         }
 
         // GET: MasterBurial2/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -162,6 +131,7 @@ namespace Fag_el_Gamous
         // POST: MasterBurial2/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("LocConcat,BurialId,BurialLocationNs,LowPairNs,HighPairNs,BurialLocationEw,LowPairEw,HighPairEw,BurialSubplot,BurialNumber,BurialDepth,SouthToHead,SouthToFeet,WestToHead,WestToFeet,LengthOfRemains,BurialSituation,SampleNumber,GenderGe,GeFunctionTotal,GenderBodyCol,BasilarSuture,VentralArc,SubpubicAngle,SciaticNotch,PubicBone,PreaurSulcus,MedialIpRamus,DorsalPitting,ForemanMagnum,FemurHead,HumerusHead,Osteophytosis,PubicSymphysis,BoneLength,MedialClavicle,IliacCrest,FemurDiameter,Humerus,FemurLength,HumerusLength,TibiaLength,Robust,SupraorbitalRidges,OrbitEdge,ParietalBossing,Gonian,NuchalCrest,ZygomaticCrest,CranialSuture,MaximumCranialLength,MaximumCranialBreadth,BasionBregmaHeight,BasionNasion,BasionProsthionLength,BizygomaticDiameter,NasionProsthion,MaximumNasalBreadth,InterorbitalBreadth,ArtifactsDescription,HairColor,PreservationIndex,HairTakenTf,SoftTissueTakenTf,BoneTakenTf,ToothTakenTf,TextileTakenTf,ArtifactFoundTf,DescriptionOfTaken,EstimateAge,EstimateLivingStature,ToothAttrition,ToothEruption,PathologyAnomalies,EpiphysealUnion,YearFound,MonthFound,DayFound,HeadDirection,Preservation,Burialicon,Burialicon2,Sex,Sexmethod,Ageatdeath,Agemethod,Haircolor1,Sample,YearOnSkull,MonthOnSkull,DateOnSkull,FieldBook,FieldBookPageNumber,InitialsOfDataEntryExpert,InitialsOfDataEntryChecker,ByuSample,BodyAnalysis,SkullAtMagazine,PostcraniaAtMagazine,SexSkull,AgeSkull,RackAndShelf,ToBeConfirmed,SkullTrauma,PostcraniaTrauma,CribraOrbitala,PoroticHyperostosis,PoroticHyperostosisLocations,MetopicSuture,ButtonOsteoma,OsteologyUnknownComment,TemporalMandibularJointOsteoarthritisTmjOa,LinearHypoplasiaEnamel,AreaHillBurials,Tomb,BurialSubNumber,YearExcav,MonthExcavated,DateExcavated,BurialDirection,BurialPreservation,BurialWrapping,BurialAdultChild,GenderCode,Burialgendermethod,AgeCodeSingle,Burialageatdeath,Burialagemethod,HairColorCode,Burialhaircolor,Burialsampletaken,LengthM,LengthCm,Goods,Clstr,FaceBundle,OsteologyNotes")] MasterBurial2 masterBurial2)
@@ -195,6 +165,7 @@ namespace Fag_el_Gamous
         }
 
         // GET: MasterBurial2/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -213,6 +184,7 @@ namespace Fag_el_Gamous
         }
 
         // POST: MasterBurial2/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

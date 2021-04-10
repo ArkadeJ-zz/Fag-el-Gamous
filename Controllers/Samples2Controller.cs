@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Fag_el_Gamous.Models;
 using Fag_el_Gamous.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Fag_el_Gamous.Controllers
 {
@@ -20,6 +21,7 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // GET: Samples2
+
         public async Task<IActionResult> Index(int? sampleId, int pageNum = 0)
         {
             int pageSize = 100;
@@ -58,6 +60,7 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // GET: Samples2/Details/5
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -77,6 +80,7 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // GET: Samples2/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["BurialId"] = new SelectList(_context.MasterBurial2, "BurialId", "BurialId");
@@ -101,6 +105,7 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // GET: Samples2/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -120,6 +125,7 @@ namespace Fag_el_Gamous.Controllers
         // POST: Samples2/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("SampleId,BurialId,LocConcat,RackNum,BagNum,LowNs,HighNs,NS,LowEw,HighEw,EW,Area,BurialNum,SubBurialNum,ClusterNum,DateDay,DateMonth,DateYear,PreviouslySampled,Notes,Initials")] Samples2 samples2)
@@ -154,6 +160,7 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // GET: Samples2/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -173,6 +180,7 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // POST: Samples2/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

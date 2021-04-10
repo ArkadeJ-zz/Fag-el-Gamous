@@ -1,0 +1,46 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model Fag_el_Gamous.Models.Filtering.Filter
+
+<form method="get" asp-controller="MasterBurial2" asp-action="Index">
+    <label asp-for="BurialSubPlot">Burial Subplot</label>
+    <select asp-for="BurialSubPlot" class="custom-select">
+        <option value="">Select an option</option>
+        <option value="NW">NW</option>
+        <option value="NE">NE</option>
+        <option value="SW">SW</option>
+        <option value="SE">SE</option>
+    </select>
+    <br />
+    <label asp-for="Sex">Sex</label>
+    <select asp-for="Sex" class="custom-select">
+        <option value="">Select an option</option>
+        <option value="M">Male</option>
+        <option value="F">Female</option>
+    </select>
+    <br />
+    <label asp-for="HairColor">Hair Color</label>
+    <select asp-for="HairColor" class="custom-select">
+        <option value="">Select an option</option>
+        <option value="U">Brown</option>
+        <option value="Red">Red</option>
+        <option value="Blonde">Blonde</option>
+        <option value="Black">Black</option>
+    </select>
+    <br />
+    @*<label asp-for="EstimateAge">Estimate Age</label>
+    <input asp-for="EstimateAge" />
+    <br />*@
+    <label asp-for="HeadDirection">Head Direction</label>
+    <select asp-for="HeadDirection" class="custom-select">
+        <option value="">Select an option</option>
+        <option value="West">West</option>
+        <option value="East">East</option>
+    </select>
+    <br />
+    <button type="submit">Filter</button>
+</form>

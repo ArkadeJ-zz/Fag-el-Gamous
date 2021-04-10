@@ -15,12 +15,12 @@ namespace Fag_el_Gamous.AppInfrastructure
     [HtmlTargetElement("div", Attributes = "page-info")]
     public class PaginationTagHelper : TagHelper
     {
-        private IUrlHelperFactory urlInfo;
+        private IUrlHelperFactory _urlInfo;
 
         //Constructor
         public PaginationTagHelper(IUrlHelperFactory uhf)
         {
-            urlInfo = uhf;
+            _urlInfo = uhf;
         }
 
         //properties of the class
@@ -35,6 +35,7 @@ namespace Fag_el_Gamous.AppInfrastructure
         public string PageClass { get; set; }
         public string PageClassNormal { get; set; }
         public string PageClassSelected { get; set; }
+        public string PageParameters { get; set; }
 
         [HtmlAttributeNotBound]
         [ViewContext]
@@ -42,7 +43,7 @@ namespace Fag_el_Gamous.AppInfrastructure
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            IUrlHelper urlHelp = urlInfo.GetUrlHelper(ViewContext);
+            IUrlHelper urlHelp = _urlInfo.GetUrlHelper(ViewContext);
 
             //instantiate a new TagBuilding for div tags
             TagBuilder finishedTag = new TagBuilder("div");
@@ -52,16 +53,18 @@ namespace Fag_el_Gamous.AppInfrastructure
                 //instantiate a new TagBuilder for a tags
                 TagBuilder individualTag = new TagBuilder("a");
 
+                
+                //append the necessary info to the individualTag
+                KeyValuePairs["pageNum"] = i;
+                individualTag.Attributes["href"] = urlHelp.Action("Index", KeyValuePairs);
+                individualTag.Attributes["href"] = individualTag.Attributes["href"] + PageParameters;
+                individualTag.InnerHtml.Append(i.ToString());
+
                 if (PageClassesEnabled)
                 {
                     individualTag.AddCssClass(PageClass);
                     individualTag.AddCssClass(i == PageInfo.CurrentPage ? PageClassSelected : PageClassNormal);
                 }
-
-                //append the necessary info to the individualTag
-                KeyValuePairs["pageNum"] = i;
-                individualTag.Attributes["href"] = urlHelp.Action("Index", KeyValuePairs);
-                individualTag.InnerHtml.Append(i.ToString());
 
                 //append the individualTag to the finishedTag
                 finishedTag.InnerHtml.AppendHtml(individualTag);

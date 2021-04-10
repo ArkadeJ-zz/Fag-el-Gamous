@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Fag_el_Gamous.Models;
 using Fag_el_Gamous.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Fag_el_Gamous.Controllers
 {
@@ -20,6 +21,7 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // GET: Carbon2
+        
         public async Task<IActionResult> Index(int? carbonId, int pageNum = 0)
         {
             int pageSize = 10;
@@ -62,6 +64,7 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // GET: Carbon2/Details/5
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -81,6 +84,7 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // GET: Carbon2/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["BurialId"] = new SelectList(_context.MasterBurial2, "BurialId", "BurialId");
@@ -90,6 +94,7 @@ namespace Fag_el_Gamous.Controllers
         // POST: Carbon2/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CarbonId,BurialId,LocConcat,RackNum,LocationNs,Ns,LocationEw,Ew,BurialSubplot,Area,BurialNum,RackAlt,TubeNum,Description,SizeMl,Foci,C14Sample2017,Location,Questions,Num,Conventional14cAgeBp,CCalendarDate,Calibrated95PercentCalendarDateMax,Calibrated95PercentCalendarDateMin,Calibrated95PercentCalendarDateSpan,Calibrated95PercentCalendarDateAvg,Category,Notes")] Carbon2 carbon2)
@@ -105,6 +110,7 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // GET: Carbon2/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -124,6 +130,7 @@ namespace Fag_el_Gamous.Controllers
         // POST: Carbon2/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CarbonId,BurialId,LocConcat,RackNum,LocationNs,Ns,LocationEw,Ew,BurialSubplot,Area,BurialNum,RackAlt,TubeNum,Description,SizeMl,Foci,C14Sample2017,Location,Questions,Num,Conventional14cAgeBp,CCalendarDate,Calibrated95PercentCalendarDateMax,Calibrated95PercentCalendarDateMin,Calibrated95PercentCalendarDateSpan,Calibrated95PercentCalendarDateAvg,Category,Notes")] Carbon2 carbon2)
@@ -158,6 +165,7 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // GET: Carbon2/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -177,6 +185,7 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // POST: Carbon2/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
