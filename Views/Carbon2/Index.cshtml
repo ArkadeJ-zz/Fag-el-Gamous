@@ -15,9 +15,10 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
+            <th></th>
             <th>
                 LocConcat
             </th>
@@ -31,29 +32,56 @@
                 Location
             </th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.Carbons) {
+        
+        
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.LocConcat)
+            <a asp-action="Details" asp-route-id="@item.CarbonId"><span class="material-icons">feed</span> </a>
+            </td>
+            <td>
+                @if (item.LocationNs == null && item.LocationEw == null)
+                {
+                    @Html.Raw("No Coordinates<br/>Burial Num:") @item.BurialNum
+                 
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.LocConcat)
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RackNum)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @if (item.Description == null)
+                {
+                    @Html.Raw("See more details...")
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.Description)
+                }
+
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Location)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CarbonId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CarbonId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CarbonId">Delete</a>
+                @*<a asp-action="Details" asp-route-id="@item.CarbonId">More Details<span class="material-icons">feed</span></a>*@
+                <a asp-action="Edit" asp-route-id="@item.CarbonId"><span class="material-icons">edit</span></a>
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.CarbonId"><span class="material-icons">delete_forever</span></a>
             </td>
         </tr>
+       
+
+        
 }
     </tbody>
 </table>
