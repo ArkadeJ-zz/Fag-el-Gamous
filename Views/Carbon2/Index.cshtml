@@ -52,7 +52,7 @@
             <a asp-action="Details" asp-route-id="@item.CarbonId"><span class="material-icons">feed</span> </a>
             </td>
             <td>
-                @if (item.LocationNs == null && item.LocationEw == null)
+                @if ((item.LocationNs == null && item.LocationEw == null) || item.LocConcat == "#VALUE!")
                 {
                     @Html.Raw("No Coordinates<br/>Burial Num:") @item.BurialNum
                  
@@ -87,10 +87,8 @@
                 <a asp-action="Delete" asp-route-id="@item.CarbonId"><span class="material-icons">delete_forever</span></a>
             </td>
         </tr>
-       
-
-        
-}
+           
+    }
     </tbody>
 </table>
 

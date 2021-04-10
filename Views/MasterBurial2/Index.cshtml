@@ -23,9 +23,10 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
+            <th></th>
             <th>
                 LocConcat
             </th>
@@ -47,6 +48,10 @@
             <th>
                 LengthOfRemains
             </th>
+            <th>
+                Burial Situation
+            </th>
+            <th></th>
             <th></th>
         </tr>
     </thead>
@@ -55,7 +60,18 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LocConcat)
+                    <a asp-action="Details" asp-route-id="@item.BurialId"><span class="material-icons">feed</span> </a>
+                </td>
+                <td>
+                    @if ((item.LowPairNs == null && item.LowPairEw == null) || item.LocConcat == "#VALUE!")
+                    {
+                        @Html.Raw("No Coordinates<br/>Burial Num:") @item.BurialId
+
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.LocConcat)
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.BurialDepth)
@@ -76,9 +92,23 @@
                     @Html.DisplayFor(modelItem => item.LengthOfRemains)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.BurialId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.BurialId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.BurialId">Delete</a>
+                    @if (item.BurialSituation == null || item.BurialSituation.Length < 20)
+                    {
+                        @Html.Raw("See more details...")
+                    }
+                    else
+                    {
+                        @item.BurialSituation.Substring(0, 20) @Html.Raw("...")
+
+                        @*@Html.DisplayFor(modelItem => item.BurialSituation) @Html.Raw("...")*@
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.BurialId"><span class="material-icons">edit</span></a>
+                </td>
+                    @*<a asp-action="Details" asp-route-id="@item.BurialId">Details</a>*@
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.BurialId"><span class="material-icons">delete_forever</span></a>
                 </td>
             </tr>
         }
