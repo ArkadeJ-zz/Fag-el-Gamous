@@ -18,11 +18,13 @@ namespace Fag_el_Gamous.Components
 
         public IViewComponentResult Invoke()
         {
-            ViewBag.LocConcat = RouteData?.Values["LocConcat"];
+            ViewBag.BurialSubPlot = RouteData?.Values["BurialSubPlot"];
 
             return View(_context.MasterBurial2
+                //.Where(x => x.BurialSubplot == ViewBag.BurialSubPlot || ViewBag.BurialSubPlot == null)
                 .Distinct()
-                .OrderBy(x => x));
+                .OrderBy(x => x)
+                .ToList());
         }
     }
 }

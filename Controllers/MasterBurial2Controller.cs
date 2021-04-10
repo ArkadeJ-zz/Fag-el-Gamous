@@ -13,6 +13,7 @@ namespace Fag_el_Gamous
     public class MasterBurial2Controller : Controller
     {
         private readonly waterbuffaloContext _context;
+        private readonly MasterBurial2 _master;
 
         public MasterBurial2Controller(waterbuffaloContext context)
         {
@@ -20,7 +21,7 @@ namespace Fag_el_Gamous
         }
 
         // GET: MasterBurial2
-        public async Task<IActionResult> Index(int? burialId, int pageNum = 0)
+        public async Task<IActionResult> Index(int? burialId, int pageNum = 0, string id = null)
         {
             int pageSize = 50;
 
@@ -31,6 +32,44 @@ namespace Fag_el_Gamous
             else
             {
                 skip = (pageNum - 1) * pageSize;
+            }
+
+            var filters = new Filters(id);
+            ViewBag.Filters = filters;
+            ViewBag.SubPlot = _context.MasterBurial2.ToList();
+            ViewBag.Sex = _context.MasterBurial2.ToList();
+            ViewBag.HairColor = _context.MasterBurial2.ToList();
+            ViewBag.EstimateAge = _context.MasterBurial2.ToList();
+            ViewBag.HeadDirection = _context.MasterBurial2.ToList();
+
+            IQueryable<MasterBurial2> query = _context.MasterBurial2
+                .Include(t => t.BurialSubplot).Include(t => t.Sex)
+                .Include(t => t.HairColor).Include(t => t.EstimateAge)
+                .Include(t => t.HeadDirection);
+
+            if (filters.HasBurialSubPlot)
+            {
+                query = query.Where(t => t.BurialSubplot == filters.BurialSubPlot);
+            }
+
+            if (filters.HasSex)
+            {
+                query = query.Where(t => t.Sex == filters.Sex);
+            }
+
+            if (filters.HasHairColor)
+            {
+                query = query.Where(t => t.HairColor == filters.HairColor);
+            }
+
+            if (filters.HasEstimateAge)
+            {
+                query = query.Where(t => t.EstimateAge == filters.EstimateAge);
+            }
+
+            if (filters.HasHeadDirection)
+            {
+                query = query.Where(t => t.HeadDirection == filters.HeadDirection);
             }
 
             return View(new PaginationViewModel
@@ -54,8 +93,14 @@ namespace Fag_el_Gamous
                         _context.MasterBurial2.Where(x => x.BurialId == burialId).Count())
                 }
             });
-
             //return View(await _context.MasterBurial2.ToListAsync());
+        }
+
+        [HttpPost]
+        public IActionResult Filter(string[] filter)
+        {
+            string id = string.Join('-', filter);
+            return RedirectToAction("Index", new { ID = id });
         }
 
         // GET: MasterBurial2/Details/5

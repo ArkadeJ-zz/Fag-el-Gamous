@@ -6,12 +6,45 @@
 
 @model IEnumerable<MasterBurial2>
 
-@foreach (var loc in Model)
-{
-    <a asp-action="Index" asp-controller="Home"
-       asp-route-teamId="@loc.BurialId"
-       asp-route-teamName="@loc.LocConcat"
-       asp-route-pagenum="1"
-       class="btn btn-block @(loc.LocConcat == ViewBag.SelectedTeam ? "btn-primary" : "btn-outline-secondary")">@loc.LocConcat</a>
-    <br />
-}
+
+<div class="dropdown">
+    <form asp-action="Filter" asp-route-pagenum="1" method="post">
+        <div class="form-group">
+            <select name="filter" class="form-control"
+                    asp-items="@(new SelectList(ViewBag.SubPlot, "BurialId", "BurialSubplot", ViewBag.Filters.BurialSubPlot))">
+                <option value="all">Burial Subplot</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <select name="filter" class="form-control"
+                    asp-items="@(new SelectList(ViewBag.Sex, "BurialId", "Sex", ViewBag.Filters.Sex))">
+                <option value="all">Sex</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <select name="filter" class="form-control"
+                    asp-items="@(new SelectList(ViewBag.HairColor, "BurialId", "HairColor", ViewBag.Filters.HairColor))">
+                <option value="all">Hair Color</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <select name="filter" class="form-control"
+                    asp-items="@(new SelectList(ViewBag.EstimateAge, "BurialId", "EstimateAge", ViewBag.Filters.EstimateAge))">
+                <option value="all">Estimate Age</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <select name="filter" class="form-control"
+                    asp-items="@(new SelectList(ViewBag.HeadDirection, "BurialId", "HeadDirection", ViewBag.Filters.HeadDirection))">
+                <option value="all">Head Direction</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+</div>
+
