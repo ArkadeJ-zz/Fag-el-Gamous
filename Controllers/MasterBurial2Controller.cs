@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Fag_el_Gamous.Models;
 using Fag_el_Gamous.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Fag_el_Gamous
 {
@@ -20,6 +21,7 @@ namespace Fag_el_Gamous
         }
 
         // GET: MasterBurial2
+        [Authorize]
         public async Task<IActionResult> Index(int? burialId, int pageNum = 0)
         {
             int pageSize = 50;
@@ -59,6 +61,7 @@ namespace Fag_el_Gamous
         }
 
         // GET: MasterBurial2/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -77,6 +80,7 @@ namespace Fag_el_Gamous
         }
 
         // GET: MasterBurial2/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -99,6 +103,7 @@ namespace Fag_el_Gamous
         }
 
         // GET: MasterBurial2/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -117,6 +122,7 @@ namespace Fag_el_Gamous
         // POST: MasterBurial2/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("LocConcat,BurialId,BurialLocationNs,LowPairNs,HighPairNs,BurialLocationEw,LowPairEw,HighPairEw,BurialSubplot,BurialNumber,BurialDepth,SouthToHead,SouthToFeet,WestToHead,WestToFeet,LengthOfRemains,BurialSituation,SampleNumber,GenderGe,GeFunctionTotal,GenderBodyCol,BasilarSuture,VentralArc,SubpubicAngle,SciaticNotch,PubicBone,PreaurSulcus,MedialIpRamus,DorsalPitting,ForemanMagnum,FemurHead,HumerusHead,Osteophytosis,PubicSymphysis,BoneLength,MedialClavicle,IliacCrest,FemurDiameter,Humerus,FemurLength,HumerusLength,TibiaLength,Robust,SupraorbitalRidges,OrbitEdge,ParietalBossing,Gonian,NuchalCrest,ZygomaticCrest,CranialSuture,MaximumCranialLength,MaximumCranialBreadth,BasionBregmaHeight,BasionNasion,BasionProsthionLength,BizygomaticDiameter,NasionProsthion,MaximumNasalBreadth,InterorbitalBreadth,ArtifactsDescription,HairColor,PreservationIndex,HairTakenTf,SoftTissueTakenTf,BoneTakenTf,ToothTakenTf,TextileTakenTf,ArtifactFoundTf,DescriptionOfTaken,EstimateAge,EstimateLivingStature,ToothAttrition,ToothEruption,PathologyAnomalies,EpiphysealUnion,YearFound,MonthFound,DayFound,HeadDirection,Preservation,Burialicon,Burialicon2,Sex,Sexmethod,Ageatdeath,Agemethod,Haircolor1,Sample,YearOnSkull,MonthOnSkull,DateOnSkull,FieldBook,FieldBookPageNumber,InitialsOfDataEntryExpert,InitialsOfDataEntryChecker,ByuSample,BodyAnalysis,SkullAtMagazine,PostcraniaAtMagazine,SexSkull,AgeSkull,RackAndShelf,ToBeConfirmed,SkullTrauma,PostcraniaTrauma,CribraOrbitala,PoroticHyperostosis,PoroticHyperostosisLocations,MetopicSuture,ButtonOsteoma,OsteologyUnknownComment,TemporalMandibularJointOsteoarthritisTmjOa,LinearHypoplasiaEnamel,AreaHillBurials,Tomb,BurialSubNumber,YearExcav,MonthExcavated,DateExcavated,BurialDirection,BurialPreservation,BurialWrapping,BurialAdultChild,GenderCode,Burialgendermethod,AgeCodeSingle,Burialageatdeath,Burialagemethod,HairColorCode,Burialhaircolor,Burialsampletaken,LengthM,LengthCm,Goods,Clstr,FaceBundle,OsteologyNotes")] MasterBurial2 masterBurial2)
@@ -150,6 +156,7 @@ namespace Fag_el_Gamous
         }
 
         // GET: MasterBurial2/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -168,6 +175,7 @@ namespace Fag_el_Gamous
         }
 
         // POST: MasterBurial2/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
