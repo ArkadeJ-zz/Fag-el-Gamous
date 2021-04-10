@@ -7,7 +7,7 @@
 @model Fag_el_Gamous.Models.Filtering.Filter
 
 <form method="get" asp-controller="MasterBurial2" asp-action="Index">
-    <label asp-for="BurialSubPlot">Burial Subplot</label>
+    <label asp-for="BurialSubPlot" style="color:black">Burial Subplot</label>
     <select asp-for="BurialSubPlot" class="custom-select">
         <option value="">Select an option</option>
         <option value="NW">NW</option>
@@ -16,14 +16,14 @@
         <option value="SE">SE</option>
     </select>
     <br />
-    <label asp-for="Sex">Sex</label>
+    <label asp-for="Sex" style="color:black">Sex</label>
     <select asp-for="Sex" class="custom-select">
         <option value="">Select an option</option>
         <option value="M">Male</option>
         <option value="F">Female</option>
     </select>
     <br />
-    <label asp-for="HairColor">Hair Color</label>
+    <label asp-for="HairColor" style="color:black">Hair Color</label>
     <select asp-for="HairColor" class="custom-select">
         <option value="">Select an option</option>
         <option value="U">Brown</option>
@@ -35,12 +35,12 @@
     @*<label asp-for="EstimateAge">Estimate Age</label>
     <input asp-for="EstimateAge" />
     <br />*@
-    <label asp-for="HeadDirection">Head Direction</label>
+    <label asp-for="HeadDirection" style="color:black">Head Direction</label>
     <select asp-for="HeadDirection" class="custom-select">
         <option value="">Select an option</option>
         <option value="West">West</option>
         <option value="East">East</option>
     </select>
     <br />
-    <button type="submit">Filter</button>
+    <button class="btn btn-primary" type="submit">Filter</button>
 </form>
