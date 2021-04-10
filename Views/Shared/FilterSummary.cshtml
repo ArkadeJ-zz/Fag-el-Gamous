@@ -1,0 +1,26 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model Fag_el_Gamous.Models.Filtering.Filter
+
+<form method="get" asp-controller="MasterBurial2" asp-action="Index">
+    <label asp-for="BurialSubPlot">Burial Subplot</label>
+    <input asp-for="BurialSubPlot" />
+    <br />
+    <label asp-for="Sex">Sex</label>
+    <input asp-for="Sex" />
+    <br />
+    <label asp-for="HairColor">Hair Color</label>
+    <input asp-for="HairColor" />
+    <br />
+    <label asp-for="EstimateAge">Hair Color</label>
+    <input asp-for="EstimateAge" />
+    <br />
+    <label asp-for="HeadDirection">Hair Color</label>
+    <input asp-for="HeadDirection" />
+    <br />
+    <button type="submit">Filter</button>
+</form>

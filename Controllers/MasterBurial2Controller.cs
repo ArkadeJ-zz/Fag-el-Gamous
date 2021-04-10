@@ -23,7 +23,7 @@ namespace Fag_el_Gamous
 
         // GET: MasterBurial2
         
-        public async Task<IActionResult> Index(int? burialId, Filter? filter, int pageNum = 0)
+        public async Task<IActionResult> Index(Filter filter, int? burialId, int pageNum = 0)
         {
             var filterLogic = new FilterLogic(_context);
 
