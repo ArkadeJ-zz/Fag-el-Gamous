@@ -36,7 +36,7 @@ namespace Fag_el_Gamous.Models.Filtering
                 }
                 if (!string.IsNullOrEmpty(searchModel.HairColor))
                 {
-                    result = result.Where(x => x.Sex.Contains(searchModel.HairColor));
+                    result = result.Where(x => x.HairColorCode.Contains(searchModel.HairColor));
                 }
                 //if (!string.IsNullOrEmpty(searchModel.EstimateAge))
                 //{
@@ -44,7 +44,7 @@ namespace Fag_el_Gamous.Models.Filtering
                 //}
                 if (!string.IsNullOrEmpty(searchModel.HeadDirection))
                 {
-                    result = result.Where(x => x.Sex.Contains(searchModel.HeadDirection));
+                    result = result.Where(x => x.HeadDirection.Contains(searchModel.HeadDirection));
                 }
 
             }
