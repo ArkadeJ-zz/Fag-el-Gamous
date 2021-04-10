@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Fag_el_Gamous.Migrations.waterbuffalo
 {
     [DbContext(typeof(waterbuffaloContext))]
-    [Migration("20210409195645_Initial")]
+    [Migration("20210410163016_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
