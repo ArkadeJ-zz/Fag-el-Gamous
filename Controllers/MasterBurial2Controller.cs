@@ -59,8 +59,8 @@ namespace Fag_el_Gamous
                     NumItemsPerPage = pageSize,
                     CurrentPage = pageNum,
 
-                    TotalNumItems = (burialId == null ? _context.MasterBurial2.Count() :
-                        _context.MasterBurial2.Where(x => x.BurialId == burialId).Count())
+                    TotalNumItems = (burialId == null ? queryModel.Count() :
+                        queryModel.Where(x => x.BurialId == burialId).Count())
                 },
 
                 UrlInfo = Request.QueryString.Value
