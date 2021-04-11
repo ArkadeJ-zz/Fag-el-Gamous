@@ -113,8 +113,8 @@ namespace Fag_el_Gamous
 
                 endpoints.MapControllerRoute(
                     "pageNumSamples",
-                    "Carbons2/{pageNum}",
-                    new { Controller = "Carbons2", action = "Index" }
+                    "Carbon2/{pageNum}",
+                    new { Controller = "Carbon2", action = "Index" }
                     );
 
                 endpoints.MapControllerRoute(

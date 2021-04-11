@@ -39,7 +39,6 @@ namespace Fag_el_Gamous.Models.Filtering.FilteringSample
 
             }
 
-
             return result;
         }
     }

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Fag_el_Gamous.Models;
 using Fag_el_Gamous.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Fag_el_Gamous.Models.Filtering.FilteringCarbon;
 
 namespace Fag_el_Gamous.Controllers
 {
@@ -22,8 +23,12 @@ namespace Fag_el_Gamous.Controllers
 
         // GET: Carbon2
         
-        public async Task<IActionResult> Index(int? carbonId, int pageNum = 0)
+        public async Task<IActionResult> Index(FilterCarbon filter, int? carbonId, int pageNum = 1)
         {
+            var filterCarbonLogic = new FilterCarbonLogic(_context);
+
+            var queryModel = filterCarbonLogic.GetCarbons(filter);
+            
             int pageSize = 10;
 
             int skip = 0;
@@ -41,8 +46,8 @@ namespace Fag_el_Gamous.Controllers
 
                 
 
-            Carbons = (_context.Carbon2
-                    .Where(c => c.CarbonId == carbonId || carbonId == null)
+            Carbons = (queryModel
+                    //.Where(c => c.CarbonId == carbonId || carbonId == null)
                     .Skip(skip)
                     .Take(pageSize)
                     .ToList()),
@@ -52,9 +57,11 @@ namespace Fag_el_Gamous.Controllers
                     NumItemsPerPage = pageSize,
                     CurrentPage = pageNum,
 
-                    TotalNumItems = (carbonId == null ? _context.Carbon2.Count() :
-                        _context.Carbon2.Where(x => x.CarbonId == carbonId).Count())
-                }
+                    TotalNumItems = (carbonId == null ? queryModel.Count() :
+                        queryModel.Where(x => x.CarbonId == carbonId).Count())
+                },
+
+                UrlInfo = Request.QueryString.Value
             });
 
 

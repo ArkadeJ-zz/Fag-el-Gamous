@@ -1,4 +1,5 @@
 ﻿using Fag_el_Gamous.Models.Filtering;
+using Fag_el_Gamous.Models.Filtering.FilteringCarbon;
 using Fag_el_Gamous.Models.Filtering.FilteringSample;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,8 @@ namespace Fag_el_Gamous.Models.ViewModels
         public Filter Filter { get; set; }
 
         public FilterSample FilterSample { get; set; }
+
+        public FilterCarbon FilterCarbon { get; set; }
 
         public string UrlInfo { get; set; }
 

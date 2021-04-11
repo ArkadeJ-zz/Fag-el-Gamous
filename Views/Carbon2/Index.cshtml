@@ -10,11 +10,34 @@
     ViewBag.Background = "/img/tent.jpg";
 }
 
+<div id="accordion">
+    @*Filter accordion*@
+    <div class="card bg-light">
+        <div class="text-black" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" style="color:black" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    Filters
+                </button>
+            </h5>
+        </div>
+
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body" style="column-count:2">
+                <div style="color:black">
+                    <partial name="FilterCarbonSummary" model="Model.FilterCarbon" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div page-info="@Model.PageNumberingInfo"
      page-classes-enabled="true"
      page-class="btn"
      page-class-normal="btn-outline-dark"
      page-class-selected="btn-primary"
+     page-parameters="@Model.UrlInfo"
      class="btn-group-sm pull-right m-1">
 </div>
 
@@ -92,5 +115,6 @@
      page-class="btn"
      page-class-normal="btn-outline-dark"
      page-class-selected="btn-primary"
+     page-parameters="@Model.UrlInfo"
      class="btn-group-sm pull-right m-1">
 </div>
