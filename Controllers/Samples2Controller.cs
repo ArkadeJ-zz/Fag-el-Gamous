@@ -80,8 +80,9 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // GET: Samples2/Create
+        [HttpGet]
         [Authorize]
-        public IActionResult Create()
+        public IActionResult Create(int Id)
         {
             ViewData["BurialId"] = new SelectList(_context.MasterBurial2, "BurialId", "BurialId");
             return View();
@@ -96,6 +97,7 @@ namespace Fag_el_Gamous.Controllers
         {
             if (ModelState.IsValid)
             {
+                //samples2.BurialId = ViewBag.Id;
                 _context.Add(samples2);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

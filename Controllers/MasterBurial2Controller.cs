@@ -85,6 +85,8 @@ namespace Fag_el_Gamous
                 return NotFound();
             }
 
+            ViewBag.Id = masterBurial2.BurialId;
+
             return View(masterBurial2);
         }
 
