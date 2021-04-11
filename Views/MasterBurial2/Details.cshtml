@@ -16,6 +16,12 @@
             <button type="submit" class="btn btn-primary">Add a Sample</button>
         </form>
     </div>
+    <div class="col-sm-2">
+        <form method="get" asp-controller="Carbon2" asp-action="Create">
+            <input asp-for="@Model.BurialId" value="@Model.BurialId" name="BurialId" hidden />
+            <button type="submit" class="btn btn-primary">Add a Carbon Dating Analysis</button>
+        </form>
+    </div>
     <hr />
     <dl class="row">
         <dd class="col-sm-9" hidden>
