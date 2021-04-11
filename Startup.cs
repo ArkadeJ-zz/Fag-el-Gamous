@@ -94,21 +94,27 @@ namespace Fag_el_Gamous
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute("LocConcat",
-                    "Location/{burialId}/{LocConcat}/{pagenum}",
-                    new { Controller = "MasterBurial2", action = "Index"}
-                    );
+                //endpoints.MapControllerRoute("LocConcat",
+                //    "Location/{burialId}/{LocConcat}/{pagenum}",
+                //    new { Controller = "MasterBurial2", action = "Index"}
+                //    );
 
                 endpoints.MapControllerRoute(
                     "pageNum",
-                    "Index/{pageNum}",
+                    "MasterBurial2/{pageNum}",
+                    new { Controller = "MasterBurial2", action = "Index" }
+                    );
+
+                endpoints.MapControllerRoute(
+                    "pageNumSamples",
+                    "Samples2/{pageNum}",
                     new { Controller = "Samples2", action = "Index" }
                     );
 
                 endpoints.MapControllerRoute(
-                    "pageNum",
-                    "Index/{pageNum}",
-                    new { Controller = "MasterBurial2", action = "Index" }
+                    "pageNumSamples",
+                    "Carbons2/{pageNum}",
+                    new { Controller = "Carbons2", action = "Index" }
                     );
 
                 endpoints.MapControllerRoute(
