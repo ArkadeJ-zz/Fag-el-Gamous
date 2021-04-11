@@ -24,7 +24,7 @@ namespace Fag_el_Gamous.Controllers
 
         // GET: Samples2
 
-        public async Task<IActionResult> Index(FilterSample filter, int? sampleId, int pageNum = 0)
+        public async Task<IActionResult> Index(FilterSample filter, int? sampleId, int pageNum = 1)
         {
             var filterSampleLogic = new FilterSampleLogic(_context);
 
@@ -55,8 +55,8 @@ namespace Fag_el_Gamous.Controllers
                     NumItemsPerPage = pageSize,
                     CurrentPage = pageNum,
 
-                    TotalNumItems = (sampleId == null ? _context.Samples2.Count() :
-                        _context.Samples2.Where(x => x.SampleId == sampleId).Count())
+                    TotalNumItems = (sampleId == null ? queryModel.Count() :
+                        queryModel.Where(x => x.SampleId == sampleId).Count())
                 },
 
                 UrlInfo = Request.QueryString.Value
