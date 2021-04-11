@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Fag_el_Gamous.Models;
 using Fag_el_Gamous.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Fag_el_Gamous.Models.Filtering.FilteringSample;
+using Fag_el_Gamous.Models.Filtering;
 
 namespace Fag_el_Gamous.Controllers
 {
@@ -22,8 +24,12 @@ namespace Fag_el_Gamous.Controllers
 
         // GET: Samples2
 
-        public async Task<IActionResult> Index(int? sampleId, int pageNum = 0)
+        public async Task<IActionResult> Index(FilterSample filter, int? sampleId, int pageNum = 0)
         {
+            var filterSampleLogic = new FilterSampleLogic(_context);
+
+            var queryModel = filterSampleLogic.GetSamples(filter);
+            
             int pageSize = 100;
 
             int skip = 0;
@@ -38,8 +44,8 @@ namespace Fag_el_Gamous.Controllers
             return View(new PaginationViewModel
             {
 
-                Samples = (_context.Samples2
-                    .Where(c => c.SampleId == sampleId || sampleId == null)
+                Samples = (queryModel
+                    //.Where(c => c.SampleId == sampleId || sampleId == null)
                     .Skip(skip)
                     .Take(pageSize)
                     .ToList()),
@@ -51,7 +57,9 @@ namespace Fag_el_Gamous.Controllers
 
                     TotalNumItems = (sampleId == null ? _context.Samples2.Count() :
                         _context.Samples2.Where(x => x.SampleId == sampleId).Count())
-                }
+                },
+
+                UrlInfo = Request.QueryString.Value
             });
 
 

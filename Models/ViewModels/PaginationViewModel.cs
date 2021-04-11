@@ -1,4 +1,5 @@
 ﻿using Fag_el_Gamous.Models.Filtering;
+using Fag_el_Gamous.Models.Filtering.FilteringSample;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,8 @@ namespace Fag_el_Gamous.Models.ViewModels
         public IEnumerable<Fag_el_Gamous.Models.MasterBurial2> Burials { get; set; }
 
         public Filter Filter { get; set; }
+
+        public FilterSample FilterSample { get; set; }
 
         public string UrlInfo { get; set; }
 

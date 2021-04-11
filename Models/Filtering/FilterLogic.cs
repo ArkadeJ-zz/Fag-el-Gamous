@@ -38,10 +38,6 @@ namespace Fag_el_Gamous.Models.Filtering
                 {
                     result = result.Where(x => x.HairColorCode.Contains(searchModel.HairColor));
                 }
-                //if (!string.IsNullOrEmpty(searchModel.EstimateAge))
-                //{
-                //    result = result.Where(x => x.Sex.Contains(searchModel.EstimateAge));
-                //}
                 if (!string.IsNullOrEmpty(searchModel.HeadDirection))
                 {
                     result = result.Where(x => x.HeadDirection.Contains(searchModel.HeadDirection));
