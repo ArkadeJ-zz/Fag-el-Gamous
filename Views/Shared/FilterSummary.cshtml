@@ -6,7 +6,7 @@
 
 @model Fag_el_Gamous.Models.Filtering.Filter
 
-<form method="get" asp-controller="MasterBurial2" asp-action="Index">
+<form method="get" asp-controller="MasterBurial2" asp-action="Index" asp-route-pagenum="1">
     <label asp-for="BurialSubPlot" style="color:black">Burial Subplot</label>
     <select asp-for="BurialSubPlot" class="custom-select">
         <option value="">Select an option</option>

@@ -102,19 +102,19 @@ namespace Fag_el_Gamous
                 endpoints.MapControllerRoute(
                     "pageNum",
                     "MasterBurial2/{pageNum}",
-                    new { Controller = "MasterBurial2", action = "Index" }
+                    new { Controller = "MasterBurial2", action = "Index"}
                     );
 
                 endpoints.MapControllerRoute(
                     "pageNumSamples",
                     "Samples2/{pageNum}",
-                    new { Controller = "Samples2", action = "Index" }
+                    new { Controller = "Samples2", action = "Index"}
                     );
 
                 endpoints.MapControllerRoute(
                     "pageNumSamples",
                     "Carbon2/{pageNum}",
-                    new { Controller = "Carbon2", action = "Index" }
+                    new { Controller = "Carbon2", action = "Index"}
                     );
 
                 endpoints.MapControllerRoute(

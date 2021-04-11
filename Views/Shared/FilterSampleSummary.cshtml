@@ -6,7 +6,7 @@
 
 @model Fag_el_Gamous.Models.Filtering.FilteringSample.FilterSample
 
-<form method="get" asp-controller="Samples2" asp-action="Index">
+<form method="get" asp-controller="Samples2" asp-action="Index" asp-route-pagenum="1">
     <label asp-for="Area" style="color:black">Area</label>
     <select asp-for="Area" class="custom-select">
         <option value="">Select an option</option>

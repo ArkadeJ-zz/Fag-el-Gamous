@@ -6,7 +6,7 @@
 
 @model Fag_el_Gamous.Models.Filtering.FilteringCarbon.FilterCarbon
 
-<form method="get" asp-controller="Carbon2" asp-action="Index">
+<form method="get" asp-controller="Carbon2" asp-action="Index" asp-route-pagenum="1">
     <label asp-for="BurialSubplot" style="color:black">Burial Subplot</label>
     <select asp-for="BurialSubplot" class="custom-select">
         <option value="">Select an option</option>
