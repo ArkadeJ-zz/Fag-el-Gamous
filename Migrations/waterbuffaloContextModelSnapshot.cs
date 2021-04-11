@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace Fag_el_Gamous.Migrations.waterbuffalo
+namespace Fag_el_Gamous.Migrations
 {
     [DbContext(typeof(waterbuffaloContext))]
     partial class waterbuffaloContextModelSnapshot : ModelSnapshot
@@ -214,8 +214,11 @@ namespace Fag_el_Gamous.Migrations.waterbuffalo
             modelBuilder.Entity("Fag_el_Gamous.Models.Carbon2", b =>
                 {
                     b.Property<int>("CarbonId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("carbon_id")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:IdentitySequenceOptions", "'26', '1', '', '', 'False', '1'")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn);
 
                     b.Property<string>("Area")
                         .HasColumnName("area")
@@ -339,7 +342,8 @@ namespace Fag_el_Gamous.Migrations.waterbuffalo
                         .ValueGeneratedOnAdd()
                         .HasColumnName("burial_id")
                         .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasAnnotation("Npgsql:IdentitySequenceOptions", "'1163', '1', '', '', 'False', '1'")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn);
 
                     b.Property<string>("AgeCodeSingle")
                         .HasColumnName("age_code_single")
@@ -894,8 +898,11 @@ namespace Fag_el_Gamous.Migrations.waterbuffalo
             modelBuilder.Entity("Fag_el_Gamous.Models.Samples2", b =>
                 {
                     b.Property<int>("SampleId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("sample_id")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:IdentitySequenceOptions", "'2000', '1', '', '', 'False', '1'")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn);
 
                     b.Property<string>("Area")
                         .HasColumnName("area")

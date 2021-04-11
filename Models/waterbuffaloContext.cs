@@ -140,7 +140,8 @@ namespace Fag_el_Gamous.Models
 
                 entity.Property(e => e.CarbonId)
                     .HasColumnName("carbon_id")
-                    .ValueGeneratedNever();
+                    .HasIdentityOptions(26L, null, null, null, null, null)
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Area)
                     .HasColumnName("area")
@@ -262,7 +263,10 @@ namespace Fag_el_Gamous.Models
 
                 entity.ToTable("master_burial2");
 
-                entity.Property(e => e.BurialId).HasColumnName("burial_id");
+                entity.Property(e => e.BurialId)
+                    .HasColumnName("burial_id")
+                    .HasIdentityOptions(1163L, null, null, null, null, null)
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.AgeCodeSingle)
                     .HasColumnName("age_code_single")
@@ -758,7 +762,8 @@ namespace Fag_el_Gamous.Models
 
                 entity.Property(e => e.SampleId)
                     .HasColumnName("sample_id")
-                    .ValueGeneratedNever();
+                    .HasIdentityOptions(2000L, null, null, null, null, null)
+                    .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Area)
                     .HasColumnName("area")

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace Fag_el_Gamous.Migrations.waterbuffalo
+namespace Fag_el_Gamous.Migrations
 {
     public partial class Initial : Migration
     {
@@ -52,7 +52,8 @@ namespace Fag_el_Gamous.Migrations.waterbuffalo
                 columns: table => new
                 {
                     burial_id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Npgsql:IdentitySequenceOptions", "'1163', '1', '', '', 'False', '1'")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
                     loc_concat = table.Column<string>(type: "character varying", nullable: true),
                     burial_location_ns = table.Column<string>(type: "character varying", nullable: true),
                     low_pair_ns = table.Column<string>(type: "character varying", nullable: true),
@@ -305,7 +306,9 @@ namespace Fag_el_Gamous.Migrations.waterbuffalo
                 name: "carbon2",
                 columns: table => new
                 {
-                    carbon_id = table.Column<int>(nullable: false),
+                    carbon_id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:IdentitySequenceOptions", "'26', '1', '', '', 'False', '1'")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
                     burial_id = table.Column<int>(nullable: true),
                     loc_concat = table.Column<string>(type: "character varying", nullable: true),
                     rack_num = table.Column<string>(type: "character varying", nullable: true),
@@ -349,7 +352,9 @@ namespace Fag_el_Gamous.Migrations.waterbuffalo
                 name: "samples2",
                 columns: table => new
                 {
-                    sample_id = table.Column<int>(nullable: false),
+                    sample_id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:IdentitySequenceOptions", "'2000', '1', '', '', 'False', '1'")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
                     burial_id = table.Column<int>(nullable: true),
                     loc_concat = table.Column<string>(type: "character varying", nullable: true),
                     rack_num = table.Column<int>(nullable: true),
