@@ -51,7 +51,8 @@ namespace Fag_el_Gamous.Controllers
                 }
             }
 
-            int pageSize = 10;
+            //increased to send more pages to the jQuery Table
+            int pageSize = 10000;
 
             int skip = 0;
 
