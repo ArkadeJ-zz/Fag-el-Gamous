@@ -55,21 +55,24 @@
                      
                         
                     @* Header - just extends drop down menu *@
-                    <li class="dropdown nav-item">
-                      <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <i class="material-icons">apps</i> Data
-                      </a>
+
                         @* Buttons of drop down menu with links *@
-                      <div class="dropdown-menu dropdown-with-icons">
-                        <a asp-controller="MasterBurial2" asp-action="Index" class="dropdown-item">
-                          <i class="material-icons">functions</i> All Burial Data
-                        </a>
-                        <a asp-controller="Samples2" asp-action="Index" class="dropdown-item">
-                          <i class="material-icons">compare_arrows</i> Biological Samples
-                        </a>
-                        <a asp-controller="Carbon2" asp-action="Index" class="dropdown-item">
-                          <i class="material-icons">phonelink_setup</i> C14 Dating
-                        </a>
+
+                        <li class="nav-item">
+                            <a asp-controller="MasterBurial2" asp-action="Index" class="nav-link">
+                                <i class="material-icons">storage</i>Burial Data
+                            </a>
+                        </li>
+                       <li class="nav-item">
+                          <a asp-controller="Samples2" asp-action="Index" class="nav-link">
+                              <i class="material-icons">topic</i> Biological Samples
+                          </a>
+                       </li>
+                       <li class="nav-item">
+                            <a asp-controller="Carbon2" asp-action="Index" class="nav-link">
+                              <i class="material-icons">biotech</i> C14 Dating
+                            </a>
+                       </li>
 
                         @*<a href="html/unlock.html" class="dropdown-item">
                           <i class="material-icons">lock_open</i> Pay off and Unlock a Device
@@ -81,14 +84,17 @@
                           <i class="material-icons">library_add_check</i> To Do List Maker
                         </a>*@
 
-                      </div>
-                    </li>
-
-                    <li class="container" style="font-weight:bold; background-color:white; border-radius:5px">
+                   
+                    <li class="nav-item" style="font-weight:bold; background-color:white; border-radius:5px">
                         <partial name="_LoginPartial" />
                      </li>
 
-                  
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="AspNetUsers" asp-action="Index">
+                            <i class="material-icons">manage_accounts</i> Admin
+                        </a>
+                    </li>
                     @*<li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Tours">
                                 <i class="material-icons">date_range</i>Sign Up

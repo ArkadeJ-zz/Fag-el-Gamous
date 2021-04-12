@@ -7,7 +7,7 @@
 @{
     ViewData["Title"] = "Carbon Dating Data";
     ViewBag.pageType = "profile-page";
-    ViewBag.Background = "/img/tent.jpg";
+    ViewBag.Background = "/img/lab.png";
 }
 
 <div id="accordion">
@@ -31,6 +31,7 @@
     </div>
 </div>
 
+<h1>Carbon Dating Data</h1>
 
 <div page-info="@Model.PageNumberingInfo"
      page-classes-enabled="true"
@@ -41,74 +42,102 @@
      class="btn-group-sm pull-right m-1">
 </div>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th></th>
-            <th>
-                LocConcat
-            </th>
-            <th>
-                RackNum
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Location
-            </th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Carbons) {
-        
-        
-        <tr>
-            <td>
-            <a asp-action="Details" asp-route-id="@item.CarbonId"><span class="material-icons">feed</span> </a>
-            </td>
-            <td>
-                @if ((item.LocationNs == null && item.LocationEw == null) || item.LocConcat == "#VALUE!")
-                {
-                    @Html.Raw("No Coordinates<br/>Burial Num:") @item.BurialNum
-                 
-                }
-                else
-                {
-                    @Html.DisplayFor(modelItem => item.LocConcat)
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RackNum)
-            </td>
-            <td>
-                @if (item.Description == null)
-                {
-                    @Html.Raw("See more details...")
-                }
-                else
-                {
-                    @Html.DisplayFor(modelItem => item.Description)
-                }
+@if (ViewData["isAdmin"] is true || ViewData["isResearcher"] is true)
+{
+    <a style="float:right" asp-action="Create">New Record <span class="material-icons">note_add</span></a>
+}
+else
+{
+    <span style="float:right">New Record <span rel="tooltip" data-placement="bottom" data-original-title="Only Admins and Researchers can Create Records" class="material-icons">note_add</span></span>
+}
 
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
-            <td>
-                @*<a asp-action="Details" asp-route-id="@item.CarbonId">More Details<span class="material-icons">feed</span></a>*@
-                <a asp-action="Edit" asp-route-id="@item.CarbonId"><span class="material-icons">edit</span></a>
-            </td>
-            <td>
-                <a asp-action="Delete" asp-route-id="@item.CarbonId"><span class="material-icons">delete_forever</span></a>
-            </td>
-        </tr>
-           
-    }
-    </tbody>
-</table>
+<br />
+<br />
+<div class="table-responsive-xl">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>
+                    Location
+                </th>
+                <th>
+                    Rack #
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Location
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Carbons)
+            {
+
+
+                <tr>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.CarbonId"><span class="material-icons">file_present</span> </a>
+                    </td>
+                    <td>
+                        @if ((item.LocationNs == null && item.LocationEw == null) || item.LocConcat == "#VALUE!" || item.LocConcat == "#REF!" || item.LocConcat == "null")
+                        {
+                            @Html.Raw("No Coordinates<br/>Burial Num:") @item.BurialNum
+
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.LocConcat)
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RackNum)
+                    </td>
+                    <td>
+                        @if (item.Description == null || item.Description.Length < 20)
+                        {
+                            @Html.Raw("See more details...")
+                        }
+                        else
+                        {
+                            @item.Description.Substring(0, 19) @Html.Raw("...")
+                        }
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Location)
+                    </td>
+                    <td>
+                        @if (ViewData["isAdmin"] is true || ViewData["isResearcher"] is true)
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.CarbonId"><span class="material-icons">edit</span></a>
+                        }
+                        else
+                        {
+                            <span rel="tooltip" data-placement="bottom" data-original-title="Only Admins and Researchers can Edit Records" class="material-icons">edit</span>
+                        }
+                    </td>
+                    <td>
+                        @if (ViewData["isAdmin"] is true)
+                        {
+                            <a asp-action="Delete" asp-route-id="@item.CarbonId"><span class="material-icons">delete_forever</span></a>
+
+                        }
+                        else
+                        {
+                            <span rel="tooltip" data-placement="bottom" data-original-title="Only Admins can Delete Records" class="material-icons">delete_forever</span>
+                        }
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
 
 <div page-info="@Model.PageNumberingInfo"
      page-classes-enabled="true"

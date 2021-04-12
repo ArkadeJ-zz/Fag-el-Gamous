@@ -41,6 +41,56 @@ namespace Fag_el_Gamous
                 skip = (pageNum - 1) * pageSize;
             }
 
+            //ViewBag of the different people that have Authorization to Edit and Delete
+            ViewBag.AdminList = _context.AspNetUsers
+                .Where(b => b.isAdmin == true)
+                .ToList();
+
+
+            ViewBag.ResearchList = _context.AspNetUsers
+                .Where(c => c.isResearcher == true)
+                .ToList();
+
+            ViewBag.CurrentUser = _context.AspNetUsers
+                .Where(c => c.UserName == User.Identity.Name);
+
+
+            var isAdmin = _context.AspNetUsers
+                .Where(c => c.UserName == User.Identity.Name);
+
+            foreach(var thing in isAdmin)
+            {
+                if( thing.isAdmin == true )
+                {
+                    ViewData["isAdmin"] = true;
+                }
+            }
+
+            var isResearcher = _context.AspNetUsers
+                .Where(c => c.UserName == User.Identity.Name);
+
+            foreach (var thing in isResearcher)
+            {
+                if (thing.isResearcher == true)
+                {
+                    ViewData["isResearcher"] = true;
+                }
+            }
+
+            
+
+
+            //int b = 0;
+            //foreach (var item in (_context.AspNetUsers.Where(c => c.isAdmin == true).ToList()))
+            //{
+            //    ViewData[$"UserName{b}"] = $"{item.UserName}";
+            //    b = b + 1;
+            //}
+
+
+
+
+
             return View(new PaginationViewModel
             {
                 //Carbons = ((IQueryable<Carbon2>)_context.Carbon2.Include(c => c.Burial).ToListAsync()),
@@ -94,6 +144,28 @@ namespace Fag_el_Gamous
         [Authorize]
         public IActionResult Create()
         {
+            var isAdmin = _context.AspNetUsers
+                .Where(c => c.UserName == User.Identity.Name);
+
+            foreach(var thing in isAdmin)
+            {
+                if( thing.isAdmin == true )
+                {
+                    ViewData["isAdmin"] = true;
+                }
+            }
+
+            var isResearcher = _context.AspNetUsers
+                .Where(c => c.UserName == User.Identity.Name);
+
+            foreach (var thing in isResearcher)
+            {
+                if (thing.isResearcher == true)
+                {
+                    ViewData["isResearcher"] = true;
+                }
+            }
+
             return View();
         }
 
@@ -117,6 +189,28 @@ namespace Fag_el_Gamous
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
+            var isAdmin = _context.AspNetUsers
+                .Where(c => c.UserName == User.Identity.Name);
+
+            foreach(var thing in isAdmin)
+            {
+                if( thing.isAdmin == true )
+                {
+                    ViewData["isAdmin"] = true;
+                }
+            }
+
+            var isResearcher = _context.AspNetUsers
+                .Where(c => c.UserName == User.Identity.Name);
+
+            foreach (var thing in isResearcher)
+            {
+                if (thing.isResearcher == true)
+                {
+                    ViewData["isResearcher"] = true;
+                }
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -170,6 +264,17 @@ namespace Fag_el_Gamous
         [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
+            var isAdmin = _context.AspNetUsers
+                .Where(c => c.UserName == User.Identity.Name);
+
+            foreach(var thing in isAdmin)
+            {
+                if( thing.isAdmin == true )
+                {
+                    ViewData["isAdmin"] = true;
+                }
+            }
+
             if (id == null)
             {
                 return NotFound();

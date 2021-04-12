@@ -30,6 +30,28 @@ namespace Fag_el_Gamous.Controllers
 
             var queryModel = filterSampleLogic.GetSamples(filter);
             
+            var isAdmin = _context.AspNetUsers
+                 .Where(c => c.UserName == User.Identity.Name);
+
+            foreach (var thing in isAdmin)
+            {
+                if (thing.isAdmin == true)
+                {
+                    ViewData["isAdmin"] = true;
+                }
+            }
+
+            var isResearcher = _context.AspNetUsers
+                .Where(c => c.UserName == User.Identity.Name);
+
+            foreach (var thing in isResearcher)
+            {
+                if (thing.isResearcher == true)
+                {
+                    ViewData["isResearcher"] = true;
+                }
+            }
+
             int pageSize = 100;
 
             int skip = 0;
@@ -41,8 +63,12 @@ namespace Fag_el_Gamous.Controllers
                 skip = (pageNum - 1) * pageSize;
             }
 
-            return View(new PaginationViewModel
+
+
+            return View( new PaginationViewModel
             {
+                
+
 
                 Samples = (queryModel
                     //.Where(c => c.SampleId == sampleId || sampleId == null)
@@ -84,6 +110,9 @@ namespace Fag_el_Gamous.Controllers
                 return NotFound();
             }
 
+           
+
+
             return View(samples2);
         }
 
@@ -92,6 +121,28 @@ namespace Fag_el_Gamous.Controllers
         [Authorize]
         public IActionResult Create(int Id)
         {
+            var isAdmin = _context.AspNetUsers
+                .Where(c => c.UserName == User.Identity.Name);
+
+            foreach(var thing in isAdmin)
+            {
+                if( thing.isAdmin == true )
+                {
+                    ViewData["isAdmin"] = true;
+                }
+            }
+
+            var isResearcher = _context.AspNetUsers
+                .Where(c => c.UserName == User.Identity.Name);
+
+            foreach (var thing in isResearcher)
+            {
+                if (thing.isResearcher == true)
+                {
+                    ViewData["isResearcher"] = true;
+                }
+            }
+
             ViewData["BurialId"] = new SelectList(_context.MasterBurial2, "BurialId", "BurialId");
             return View();
         }
@@ -118,6 +169,27 @@ namespace Fag_el_Gamous.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
+            var isAdmin = _context.AspNetUsers
+                .Where(c => c.UserName == User.Identity.Name);
+
+            foreach(var thing in isAdmin)
+            {
+                if( thing.isAdmin == true )
+                {
+                    ViewData["isAdmin"] = true;
+                }
+            }
+
+            var isResearcher = _context.AspNetUsers
+                .Where(c => c.UserName == User.Identity.Name);
+
+            foreach (var thing in isResearcher)
+            {
+                if (thing.isResearcher == true)
+                {
+                    ViewData["isResearcher"] = true;
+                }
+            }
             if (id == null)
             {
                 return NotFound();
@@ -173,6 +245,20 @@ namespace Fag_el_Gamous.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
+            var isAdmin = _context.AspNetUsers
+                .Where(c => c.UserName == User.Identity.Name);
+
+            foreach(var thing in isAdmin)
+            {
+                if( thing.isAdmin == true )
+                {
+                    ViewData["isAdmin"] = true;
+                }
+            }
+
+
+
+
             if (id == null)
             {
                 return NotFound();

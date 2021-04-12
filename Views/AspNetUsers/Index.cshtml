@@ -1,0 +1,192 @@
+﻿@model IEnumerable<Fag_el_Gamous.Models.AspNetUsers>
+
+@{
+    ViewData["Title"] = "Admin";
+    ViewBag.pageType = "profile-page";
+    ViewBag.Background = "/img/pyramid.jpg";
+}
+
+
+
+
+
+@if (ViewData["isAdmin"] is true)
+{
+    <h4>Admin Profile Viewer</h4>
+    <p>Edit Profile Permissions to the site, view profile data.</p>
+}
+else
+{
+    <p>Your logged in Profile does not have Admin Access, please contact one of the following Admins:</p>
+
+    <ol>
+        @foreach (var name in ViewBag.AdminList)
+        {
+            <li>@name.Email </li>
+        }
+
+    </ol>
+}
+
+
+
+<p>
+    <a asp-action="Create" hidden>Create New</a>
+</p>
+
+<div class="table-responsive-xl">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>View</th>
+                <th>
+                    Researcher
+                </th>
+                <th>
+                    Admin
+                </th>
+                <th>
+                    Username
+                </th>
+                <th hidden>
+                    @Html.DisplayNameFor(model => model.NormalizedUserName)
+                </th>
+                <th hidden>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th hidden>
+                    @Html.DisplayNameFor(model => model.NormalizedEmail)
+                </th>
+                <th hidden>
+                    @Html.DisplayNameFor(model => model.EmailConfirmed)
+                </th>
+                <th hidden>
+                    @Html.DisplayNameFor(model => model.PasswordHash)
+                </th>
+                <th hidden>
+                    @Html.DisplayNameFor(model => model.SecurityStamp)
+                </th>
+                <th hidden>
+                    @Html.DisplayNameFor(model => model.ConcurrencyStamp)
+                </th>
+                <th hidden>
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
+                <th hidden>
+                    @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
+                </th>
+                <th hidden>
+                    @Html.DisplayNameFor(model => model.TwoFactorEnabled)
+                </th>
+                <th hidden>
+                    @Html.DisplayNameFor(model => model.LockoutEnd)
+                </th>
+                <th hidden>
+                    @Html.DisplayNameFor(model => model.LockoutEnabled)
+                </th>
+                <th hidden>
+                    @Html.DisplayNameFor(model => model.AccessFailedCount)
+                </th>
+
+
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+
+
+
+        <tbody>
+
+
+            @if (ViewData["isAdmin"] is true)
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.Id"><span class="material-icons">feed</span> </a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.isResearcher)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.isAdmin)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td hidden>
+                            @Html.DisplayFor(modelItem => item.NormalizedUserName)
+                        </td>
+                        <td hidden>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td hidden>
+                            @Html.DisplayFor(modelItem => item.NormalizedEmail)
+                        </td>
+                        <td hidden>
+                            @Html.DisplayFor(modelItem => item.EmailConfirmed)
+                        </td>
+                        <td hidden>
+                            @Html.DisplayFor(modelItem => item.PasswordHash)
+                        </td>
+                        <td hidden>
+                            @Html.DisplayFor(modelItem => item.SecurityStamp)
+                        </td>
+                        <td hidden>
+                            @Html.DisplayFor(modelItem => item.ConcurrencyStamp)
+                        </td>
+                        <td hidden>
+                            @Html.DisplayFor(modelItem => item.PhoneNumber)
+                        </td>
+                        <td hidden>
+                            @Html.DisplayFor(modelItem => item.PhoneNumberConfirmed)
+                        </td>
+                        <td hidden>
+                            @Html.DisplayFor(modelItem => item.TwoFactorEnabled)
+                        </td>
+                        <td hidden>
+                            @Html.DisplayFor(modelItem => item.LockoutEnd)
+                        </td>
+                        <td hidden>
+                            @Html.DisplayFor(modelItem => item.LockoutEnabled)
+                        </td>
+                        <td hidden>
+                            @Html.DisplayFor(modelItem => item.AccessFailedCount)
+                        </td>
+
+
+                        <td>
+                            @if (User.Identity.Name == item.UserName)
+                            {
+                                <a  rel="tooltip" data-placement="bottom" data-original-title="Caution when editing your own permissions, you could lose access to the Admin Portal." asp-action="Edit" asp-route-id="@item.Id"><span class="material-icons">edit</span></a>
+                            }
+                            else
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.Id"><span class="material-icons">edit</span></a>
+                            }
+                        </td>
+                        <td>
+                            @if (User.Identity.Name == item.UserName)
+                            {
+                                <span rel="tooltip" data-placement="bottom" data-original-title="You cannot delete yourself from the Admin portal. You may do so from the Profile Tab > Personal Data > Delete" class="material-icons">delete_forever</span>
+                            }
+                            else
+                            {
+                                <a asp-action="Delete" asp-route-id="@item.Id"><span class="material-icons">delete_forever</span></a>
+                            }
+
+
+                        </td>
+                    </tr>
+                }
+
+
+
+
+            }
+        </tbody>
+
+    </table>
+</div>

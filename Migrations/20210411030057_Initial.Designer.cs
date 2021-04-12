@@ -201,6 +201,12 @@ namespace Fag_el_Gamous.Migrations
                         .HasColumnType("character varying(256)")
                         .HasMaxLength(256);
 
+                    b.Property<bool?>("isAdmin")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool?>("isResearcher")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")

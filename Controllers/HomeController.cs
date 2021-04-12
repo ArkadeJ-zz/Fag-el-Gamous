@@ -11,6 +11,8 @@ namespace Fag_el_Gamous.Controllers
 {
     public class HomeController : Controller
     {
+       
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -20,8 +22,15 @@ namespace Fag_el_Gamous.Controllers
 
         public IActionResult Index()
         {
+
             return View();
         }
+
+
+
+
+
+
 
         public IActionResult Privacy()
         {
