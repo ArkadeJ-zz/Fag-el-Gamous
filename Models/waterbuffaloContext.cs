@@ -122,6 +122,10 @@ namespace Fag_el_Gamous.Models
 
                 entity.Property(e => e.Email).HasMaxLength(256);
 
+                entity.Property(e => e.IsAdmin).HasColumnName("isAdmin");
+
+                entity.Property(e => e.IsResearcher).HasColumnName("isResearcher");
+
                 entity.Property(e => e.LockoutEnd).HasColumnType("timestamp with time zone");
 
                 entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
@@ -762,7 +766,7 @@ namespace Fag_el_Gamous.Models
 
                 entity.Property(e => e.SampleId)
                     .HasColumnName("sample_id")
-                    .HasIdentityOptions(2000L, null, null, null, null, null)
+                    .HasIdentityOptions(1911L, null, null, null, null, null)
                     .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Area)
