@@ -122,9 +122,9 @@ namespace Fag_el_Gamous.Models
 
                 entity.Property(e => e.Email).HasMaxLength(256);
 
-                entity.Property(e => e.IsAdmin).HasColumnName("isAdmin");
+                entity.Property(e => e.isAdmin).HasColumnName("isAdmin");
 
-                entity.Property(e => e.IsResearcher).HasColumnName("isResearcher");
+                entity.Property(e => e.isResearcher).HasColumnName("isResearcher");
 
                 entity.Property(e => e.LockoutEnd).HasColumnType("timestamp with time zone");
 
