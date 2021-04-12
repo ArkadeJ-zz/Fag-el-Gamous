@@ -52,97 +52,91 @@ else
 }
 <br />
 <br />
-<div class="table-responsive-xl">
-
-<div page-info="@Model.PageNumberingInfo"
-     page-classes-enabled="true"
-     page-class="btn"
-     page-class-normal="btn-outline-dark"
-     page-class-selected="btn-primary"
-     page-parameters="@Model.UrlInfo"
-     asp-route-pageNum="1"
-     class="btn-group-sm pull-right m-1">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th></th>
-                <th>
-                    Location
-                </th>
-                <th>
-                    Rack #
-                </th>
-                <th>
-                    Sub Burial #
-                </th>
-                <th>
-                    Year
-                </th>
-                <th>
-                    Notes
-                </th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Samples)
-            {
-            <tr>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.SampleId"><span class="material-icons">file_present</span> </a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LocConcat)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RackNum)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SubBurialNum)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateYear)
-                </td>
-                <td>
-                    @if (item.Notes == null || item.Notes.Length < 15)
-                    {
-                        @Html.Raw("See details...")
-                    }
-                    else
-                    {
-                        @item.Notes.Substring(0, 15) @Html.Raw("...")
 
 
-                    }
-                </td>
-                <td>
-                    @if (ViewData["isAdmin"] is true || ViewData["isResearcher"] is true)
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.SampleId"><span class="material-icons">edit</span></a>
-                    }
-                    else
-                    {
-                        <span rel="tooltip" data-placement="bottom" data-original-title="Only Admins and Researchers can Edit Records" class="material-icons">edit</span>
-                    }
-                </td>
-                <td>
-                    @if (ViewData["isAdmin"] is true)
-                    {
-                        <a asp-action="Delete" asp-route-id="@item.SampleId"><span class="material-icons">delete_forever</span></a>
 
-                    }
-                    else
-                    {
-                        <span rel="tooltip" data-placement="bottom" data-original-title="Only Admins can Delete Records" class="material-icons">delete_forever</span>
-                    }
-                </td>
+    <div class="table-responsive-xl">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>
+                        Location
+                    </th>
+                    <th>
+                        Rack #
+                    </th>
+                    <th>
+                        Sub Burial #
+                    </th>
+                    <th>
+                        Year
+                    </th>
+                    <th>
+                        Notes
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Samples)
+                {
+                    <tr>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.SampleId"><span class="material-icons">file_present</span> </a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LocConcat)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RackNum)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubBurialNum)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateYear)
+                        </td>
+                        <td>
+                            @if (item.Notes == null || item.Notes.Length < 15)
+                            {
+                                @Html.Raw("See details...")
+                            }
+                            else
+                            {
+                                @item.Notes.Substring(0, 15) @Html.Raw("...")
 
-            </tr>
-            }
-        </tbody>
-    </table>
-</div>
+
+                            }
+                        </td>
+                        <td>
+                            @if (ViewData["isAdmin"] is true || ViewData["isResearcher"] is true)
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.SampleId"><span class="material-icons">edit</span></a>
+                            }
+                            else
+                            {
+                                <span rel="tooltip" data-placement="bottom" data-original-title="Only Admins and Researchers can Edit Records" class="material-icons">edit</span>
+                            }
+                        </td>
+                        <td>
+                            @if (ViewData["isAdmin"] is true)
+                            {
+                                <a asp-action="Delete" asp-route-id="@item.SampleId"><span class="material-icons">delete_forever</span></a>
+
+                            }
+                            else
+                            {
+                                <span rel="tooltip" data-placement="bottom" data-original-title="Only Admins can Delete Records" class="material-icons">delete_forever</span>
+                            }
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 
     <div page-info="@Model.PageNumberingInfo"
          page-classes-enabled="true"
@@ -150,5 +144,5 @@ else
          page-class-normal="btn-outline-dark"
          page-class-selected="btn-primary"
          class="btn-group-sm pull-right m-1">
-         
+
     </div>
