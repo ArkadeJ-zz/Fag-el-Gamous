@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Fag_el_Gamous.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Fag_el_Gamous.Controllers
 {
@@ -41,6 +42,7 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // GET: AspNetUsers/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -59,6 +61,7 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // GET: AspNetUsers/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -67,6 +70,7 @@ namespace Fag_el_Gamous.Controllers
         // POST: AspNetUsers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount,isResearcher,isAdmin")] AspNetUsers aspNetUsers)
@@ -81,6 +85,7 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // GET: AspNetUsers/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(string id)
         {
             ViewBag.AdminList = _context.AspNetUsers
@@ -115,6 +120,7 @@ namespace Fag_el_Gamous.Controllers
         // POST: AspNetUsers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount,isResearcher,isAdmin")] AspNetUsers aspNetUsers)
@@ -150,6 +156,7 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // GET: AspNetUsers/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -168,6 +175,7 @@ namespace Fag_el_Gamous.Controllers
         }
 
         // POST: AspNetUsers/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)

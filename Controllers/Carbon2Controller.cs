@@ -51,7 +51,9 @@ namespace Fag_el_Gamous.Controllers
                 }
             }
 
-            int pageSize = 10;
+
+            ////////CHANGED TO FORCE ALL DATA INTO THE DATA TABLE
+            int pageSize = 10000;
 
             int skip = 0;
 

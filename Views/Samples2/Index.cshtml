@@ -10,8 +10,9 @@
 }
 
 
+
 <div id="accordion">
-@*Filter accordion*@
+    @*Filter accordion*@
     <div class="card bg-light">
         <div class="text-black" id="headingOne">
             <h5 class="mb-0">
@@ -55,94 +56,134 @@ else
 
 
 
-    <div class="table-responsive-xl">
-        <table class="table table-striped">
-            <thead>
+<div class="table-responsive-xl">
+    <table class="table" id="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>
+                    Location
+                </th>
+                <th>
+                    Rack #
+                </th>
+                <th>
+                    Sub Burial #
+                </th>
+                <th>
+                    Year
+                </th>
+                <th>
+                    Notes
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Samples)
+            {
                 <tr>
-                    <th></th>
-                    <th>
-                        Location
-                    </th>
-                    <th>
-                        Rack #
-                    </th>
-                    <th>
-                        Sub Burial #
-                    </th>
-                    <th>
-                        Year
-                    </th>
-                    <th>
-                        Notes
-                    </th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Samples)
-                {
-                    <tr>
-                        <td>
-                            <a asp-action="Details" asp-route-id="@item.SampleId"><span class="material-icons">file_present</span> </a>
-                        </td>
-                        <td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.SampleId"><span class="material-icons">file_present</span> </a>
+                    </td>
+                    <td>
+                        @if ((item.LowNs == null && item.LowEw == null) || item.LocConcat == "#VALUE!" || item.LocConcat == "#REF!" || item.LocConcat == "null")
+                        {
+                            @Html.Raw("No Coordinates<br/>Sample ID:") @item.SampleId
+
+                        }
+                        else
+                        {
                             @Html.DisplayFor(modelItem => item.LocConcat)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RackNum)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SubBurialNum)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DateYear)
-                        </td>
-                        <td>
-                            @if (item.Notes == null || item.Notes.Length < 15)
-                            {
-                                @Html.Raw("See details...")
-                            }
-                            else
-                            {
-                                @item.Notes.Substring(0, 15) @Html.Raw("...")
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RackNum)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubBurialNum)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateYear)
+                    </td>
+                    <td>
+                        @item.Notes
+
+                    </td>
+                    <td>
+                        @if (ViewData["isAdmin"] is true || ViewData["isResearcher"] is true)
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.SampleId"><span class="material-icons">edit</span></a>
+                        }
+                        else
+                        {
+                            <span rel="tooltip" data-placement="bottom" data-original-title="Only Admins and Researchers can Edit Records" class="material-icons">edit</span>
+                        }
+                    </td>
+                    <td>
+                        @if (ViewData["isAdmin"] is true)
+                        {
+                            <a asp-action="Delete" asp-route-id="@item.SampleId"><span class="material-icons">delete_forever</span></a>
+
+                        }
+                        else
+                        {
+                            <span rel="tooltip" data-placement="bottom" data-original-title="Only Admins can Delete Records" class="material-icons">delete_forever</span>
+                        }
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div page-info="@Model.PageNumberingInfo"
+     page-classes-enabled="true"
+     page-class="btn"
+     page-class-normal="btn-outline-dark"
+     page-class-selected="btn-primary"
+     class="btn-group-sm pull-right m-1">
+
+</div>
+
+@section scripts {
+    <script>
+
+        $(document).ready(function () {
+
+            $('#table').DataTable({
+                //buttons: ['searchPanes',],
+                //dom: 'B<"row mt-3"<"col-lg-6"l><"col-lg-6"f>>rtip',
+                dom: 'Pfrtip',
+                columnDefs: [
+                    {
+                        searchPanes: {
+                            show: true
+
+                        },
+                        targets: [1, 2, 4, 5],
+                    },
+                    {
+                        "searchable": false,
+                        "orderable": false,
+                        targets: [0, 6, 7],
+                    },
+                    {
+                        "className": "text-left",
+                        "targets": 5
+
+                    },
+
+                ],
 
 
-                            }
-                        </td>
-                        <td>
-                            @if (ViewData["isAdmin"] is true || ViewData["isResearcher"] is true)
-                            {
-                                <a asp-action="Edit" asp-route-id="@item.SampleId"><span class="material-icons">edit</span></a>
-                            }
-                            else
-                            {
-                                <span rel="tooltip" data-placement="bottom" data-original-title="Only Admins and Researchers can Edit Records" class="material-icons">edit</span>
-                            }
-                        </td>
-                        <td>
-                            @if (ViewData["isAdmin"] is true)
-                            {
-                                <a asp-action="Delete" asp-route-id="@item.SampleId"><span class="material-icons">delete_forever</span></a>
+            });
 
-                            }
-                            else
-                            {
-                                <span rel="tooltip" data-placement="bottom" data-original-title="Only Admins can Delete Records" class="material-icons">delete_forever</span>
-                            }
-                        </td>
+        });
 
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
 
-    <div page-info="@Model.PageNumberingInfo"
-         page-classes-enabled="true"
-         page-class="btn"
-         page-class-normal="btn-outline-dark"
-         page-class-selected="btn-primary"
-         class="btn-group-sm pull-right m-1">
 
-    </div>
+    </script>
+}

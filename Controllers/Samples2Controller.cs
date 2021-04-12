@@ -52,7 +52,7 @@ namespace Fag_el_Gamous.Controllers
                 }
             }
 
-            int pageSize = 100;
+            int pageSize = 10000;
 
             int skip = 0;
 
