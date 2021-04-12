@@ -10,19 +10,13 @@ namespace Fag_el_Gamous.Models
 {
     public partial class waterbuffaloContext : DbContext
     {
-        
-        public waterbuffaloContext(DbContextOptions<waterbuffaloContext> options)
-            : base(options)
-        {
-        }
-
         public waterbuffaloContext()
         {
         }
 
-        public static waterbuffaloContext Create()
+        public waterbuffaloContext(DbContextOptions<waterbuffaloContext> options)
+            : base(options)
         {
-            return new waterbuffaloContext();
         }
 
         public virtual DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
@@ -41,7 +35,7 @@ namespace Fag_el_Gamous.Models
             if (!optionsBuilder.IsConfigured)
             {
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql("Host = localhost; Database = waterbuffalo; Username=postgres; Password=profgreg");
+                optionsBuilder.UseNpgsql("Host = aa1vamryrftaifd.cehgg64lqejx.us-east-1.rds.amazonaws.com; Database = waterbuffalo; Username=postgres; Password=profgreg");
             }
         }
 

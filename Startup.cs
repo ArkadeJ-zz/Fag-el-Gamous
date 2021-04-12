@@ -47,7 +47,7 @@ namespace Fag_el_Gamous
 
             services.AddDbContext<waterbuffaloContext>(options =>
             {
-                options.UseNpgsql(Helpers.GetRDSConnectionString());
+                options.UseNpgsql(Configuration["ConnectionStrings:postgresConnection"]);
             });
 
 
