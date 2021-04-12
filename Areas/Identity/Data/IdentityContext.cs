@@ -6,6 +6,7 @@ using Fag_el_Gamous.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Fag_el_Gamous.Models;
 
 namespace Fag_el_Gamous.Data
 {

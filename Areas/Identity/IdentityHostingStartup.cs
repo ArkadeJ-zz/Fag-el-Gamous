@@ -18,7 +18,7 @@ namespace Fag_el_Gamous.Areas.Identity
             builder.ConfigureServices((context, services) => {
                 services.AddDbContext<IdentityContext>(options =>
                     options.UseNpgsql(
-                        context.Configuration.GetConnectionString("IdentityContextConnection")));
+                        context.Configuration.GetConnectionString("postgresConnection")));
 
                 services.AddDefaultIdentity<Fag_el_GamousUser>(options => options.SignIn.RequireConfirmedAccount = true)
                     .AddEntityFrameworkStores<IdentityContext>();

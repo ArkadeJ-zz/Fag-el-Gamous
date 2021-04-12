@@ -14,6 +14,8 @@ namespace Fag_el_Gamous.Models
         {
         }
 
+
+
         public waterbuffaloContext(DbContextOptions<waterbuffaloContext> options)
             : base(options)
         {
@@ -35,7 +37,7 @@ namespace Fag_el_Gamous.Models
             if (!optionsBuilder.IsConfigured)
             {
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseNpgsql("Server=aa1vamryrftaifd.cehgg64lqejx.us-east-1.rds.amazonaws.com;Database=waterbuffalo;User ID=postgres;Password=profgreg;MultipleActiveResultSets=true;");
+                optionsBuilder.UseNpgsql("Server = aa1vamryrftaifd.cehgg64lqejx.us-east-1.rds.amazonaws.com; Database = waterbuffalo; Username=postgres; Password=profgreg");
             }
         }
 
