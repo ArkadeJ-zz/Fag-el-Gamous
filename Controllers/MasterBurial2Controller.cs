@@ -29,7 +29,8 @@ namespace Fag_el_Gamous
 
             var queryModel = filterLogic.GetMummies(filter);
 
-            int pageSize = 50;
+            //Page size upped in order for the jQuery table to function properly
+            int pageSize = 10000;
 
             int skip = 0;
 
