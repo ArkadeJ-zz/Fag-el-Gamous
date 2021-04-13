@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\**" />
+    <Content Remove="Pages\**" />
+    <EmbeddedResource Remove="Pages\**" />
+    <None Remove="Pages\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.1.13" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.13" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.13" />
@@ -31,7 +38,6 @@
   <ItemGroup>
     <Folder Include="Components\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Pages\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,6 +68,8 @@
     <None Include="wwwroot\lib\jquery\dist\jquery.js" />
     <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
     <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
+    <None Include="wwwroot\loader\js\jquery.js" />
+    <None Include="wwwroot\loader\js\loader.js" />
     <None Include="wwwroot\plugins\bootstrap\js\bootstrap.bundle.js" />
     <None Include="wwwroot\plugins\bootstrap\js\bootstrap.bundle.js.map" />
     <None Include="wwwroot\plugins\bootstrap\js\bootstrap.bundle.min.js" />

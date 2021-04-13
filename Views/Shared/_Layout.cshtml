@@ -21,10 +21,13 @@
 
 
     <!-- Font Awesome Icons -->
-    <!--
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{% static " plugins /fontawesome-free/css/all.min.css" %}">
-    --->
+    
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">*@
+    @*<link rel="stylesheet" href="{% static " plugins /fontawesome-free/css/all.min.css" %}">
+   
+    <link href="~/loader/css/global.css" rel="stylesheet" />*@
+    
+
     <!-- CSS Files -->
     <link href="~/css/material-kit.css" rel="stylesheet" />
 
@@ -237,8 +240,12 @@
     <!--Data Table js plugin -->
     <script src="~/plugins/DataTables/datatables.min.js"></script>
 
+    @* Loader *@
+    <script src="~/loader/js/loader.js" type="text/javascript"></script>
 
 
+    @* font awesome *@
+    <script src="https://kit.fontawesome.com/b76b70118d.js" crossorigin="anonymous"></script>
 
     @RenderSection("scripts", required: false)
 
@@ -264,6 +271,14 @@
                 }, 1000);
             }
         }
+
+
+
+
+
+
+
+
     </script>
 </body>
 </html>

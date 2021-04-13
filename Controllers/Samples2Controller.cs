@@ -29,7 +29,15 @@ namespace Fag_el_Gamous.Controllers
             var filterSampleLogic = new FilterSampleLogic(_context);
 
             var queryModel = filterSampleLogic.GetSamples(filter);
-            
+
+
+            //creates a list of Burial with Burial IDs (so we can link them in the view)
+            ViewBag.MasterBurialList = _context.MasterBurial2
+                .Where(c => c.BurialId != null)
+                .ToList();
+
+
+
             var isAdmin = _context.AspNetUsers
                  .Where(c => c.UserName == User.Identity.Name);
 

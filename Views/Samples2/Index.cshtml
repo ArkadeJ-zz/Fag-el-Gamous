@@ -57,13 +57,13 @@
 
 
 @*<div page-info="@Model.PageNumberingInfo"
-     page-classes-enabled="true"
-     page-class="btn"
-     page-class-normal="btn-outline-dark"
-     page-class-selected="btn-primary"
-     page-parameters="@Model.UrlInfo"
-     class="btn-group-sm pull-right m-1">
-</div>*@
+         page-classes-enabled="true"
+         page-class="btn"
+         page-class-normal="btn-outline-dark"
+         page-class-selected="btn-primary"
+         page-parameters="@Model.UrlInfo"
+         class="btn-group-sm pull-right m-1">
+    </div>*@
 
 @if (ViewData["isAdmin"] is true || ViewData["isResearcher"] is true)
 {
@@ -77,12 +77,14 @@ else
 <br />
 
 
+<div id="loaderDiv" class="text-center"><i class="fas fa-circle-notch fa-spin fa-2x"></i><p>Excavating Mummies...</p></div>
 
-<div class="table-responsive-xl">
+<div  id="tableDiv" style="display:none">
     <table class="table" id="table">
         <thead>
             <tr>
-                <th></th>
+                <th>Linked Burial Record</th>
+                <th>Details</th>
                 <th>
                     Location
                 </th>
@@ -107,7 +109,17 @@ else
             {
                 <tr>
                     <td>
-                        <a asp-action="Details" asp-route-id="@item.SampleId"><span class="material-icons">file_present</span> </a>
+                        @foreach (var item2 in ViewBag.MasterBurialList)
+                        {
+
+                            @if (item.BurialId == item2.BurialId)
+                            {
+                                <a style="font-size:x-small" target="_blank" href="/MasterBurial2/Details/@item.BurialId"><span class="material-icons">storage</span>@item.BurialId</a>
+                            }
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.SampleId"><span class="material-icons">description</span> </a>
                     </td>
                     <td>
                         @if ((item.LowNs == null && item.LowEw == null) || item.LocConcat == "#VALUE!" || item.LocConcat == "#REF!" || item.LocConcat == "null")
@@ -162,13 +174,13 @@ else
 </div>
 
 @*<div page-info="@Model.PageNumberingInfo"
-     page-classes-enabled="true"
-     page-class="btn"
-     page-class-normal="btn-outline-dark"
-     page-class-selected="btn-primary"
-     class="btn-group-sm pull-right m-1">
+         page-classes-enabled="true"
+         page-class="btn"
+         page-class-normal="btn-outline-dark"
+         page-class-selected="btn-primary"
+         class="btn-group-sm pull-right m-1">
 
-</div>*@
+    </div>*@
 
 @section scripts {
     <script>
@@ -190,7 +202,7 @@ else
                     {
                         "searchable": false,
                         "orderable": false,
-                        targets: [0, 6, 7],
+                        targets: [1, 6, 7],
                     },
                     {
                         "className": "text-left",
@@ -205,6 +217,9 @@ else
 
         });
 
+
+        $('#loaderDiv').fadeOut(2200);
+        $('#tableDiv').slideUp(300).delay(2600).fadeIn(400);
 
 
     </script>

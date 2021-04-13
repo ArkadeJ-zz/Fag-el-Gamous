@@ -79,7 +79,10 @@ else
 
 <br />
 <br />
-<div class="table-responsive-xl">
+
+<div id="loaderDiv" class="text-center"><i class="fas fa-circle-notch fa-spin fa-2x"></i><p>Excavating Mummies...</p></div>
+
+<div id="tableDiv" style="display:none">
     <table class="table table-striped" id="table">
         <thead>
             <tr>
@@ -115,7 +118,7 @@ else
 
                             @if (item.BurialId == item2.BurialId)
                             {
-                            <a style="font-size:x-small" target="_blank" href="/MasterBurial2/Details/@item.BurialId"><span class="material-icons">file_present</span>@item.BurialId</a>
+                            <a style="font-size:x-small" target="_blank" href="/MasterBurial2/Details/@item.BurialId"><span class="material-icons">storage</span>@item.BurialId</a>
                             }
                         }
                     </td>
@@ -209,7 +212,7 @@ else
                     {
                         "searchable": false,
                         "orderable": false,
-                        targets: [0, 1, 6, 7],
+                        targets: [1, 6, 7],
                     },
                     {
                         "className": "text-left",
@@ -223,6 +226,10 @@ else
             });
 
         });
+
+
+        $('#loaderDiv').fadeOut(2200);
+        $('#tableDiv').slideUp(300).delay(2600).fadeIn(400);
 
 
 

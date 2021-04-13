@@ -12,6 +12,52 @@
 }
 
 
+
+
+
+<style>
+
+    .loading-overlay {
+        display: none;
+        background: rgba( 26, 26, 26, 0.7 );
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: 5;
+        top: 0;
+    }
+
+    .loading-overlay-image-container {
+        display: none;
+        position: fixed;
+        z-index: 7;
+        top: 50%;
+        left: 50%;
+        transform: translate( -50%, -50% );
+    }
+
+    .loading-overlay-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+    }
+
+
+</style>
+
+<div class="loading-overlay"></div>
+<div class="loading-overlay-image-container">
+    <img src="assets/loading.gif" class="loading-overlay-img" />
+</div>
+
+
+
+
+
+
+
+
+
 <div id="accordion">
     @*Tips accordion*@
     <div class="card bg-light">
@@ -26,12 +72,14 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
             <div class="card-body" style="column-count:2">
                 <div style="color:black">
-                    
-                        <p>Using the <b>filter</b> pane below, you can first filter all the records that are displayed in the table below.</p>
-                        <p>Once filtered, the <b>search bar</b> above the table is an extremely powerful tool to find detailed results. "Quotes" can be used when searching for exact definitions.
-                        Otherwise case, and order is ignored to help you query the data.</p>
-                        <p>Clicking on the <b>arrows</b> next to the column name will sort by ascending or descending order.</p>
-                    
+
+                    <p>Using the <b>filter</b> pane below, you can first filter all the records that are displayed in the table below.</p>
+                    <p>
+                        Once filtered, the <b>search bar</b> above the table is an extremely powerful tool to find detailed results. "Quotes" can be used when searching for exact definitions.
+                        Otherwise case, and order is ignored to help you query the data.
+                    </p>
+                    <p>Clicking on the <b>arrows</b> next to the column name will sort by ascending or descending order.</p>
+
                     <br />
                 </div>
             </div>
@@ -87,7 +135,11 @@ else
 
 <br />
 <br />
-<div class="table-responsive-xl">
+
+    <div id="loaderDiv" class="text-center"><i class="fas fa-circle-notch fa-spin fa-2x"></i><p>Excavating Mummies...</p></div>
+
+
+<div id="tableDiv" style="display:none">
 
     <table class="table table-striped" id="table">
         <thead>
@@ -130,23 +182,23 @@ else
             @foreach (var item in Model.Burials)
             {
                 <tr>
-                    <td >
+                    <td>
                         @foreach (var item2 in ViewBag.SampleBurialList)
                         {
                             @if (item.BurialId == item2.BurialId)
                             {
                                 <a style="font-size:x-small" target="_blank" href="/Samples2/Details/@item2.SampleId"><span class="material-icons">science</span>@item2.SampleId<hr style="position:relative; bottom: 10px" /></a>
-                                
+
                             }
                         }
                     </td>
-                    <td >
+                    <td>
                         @foreach (var item2 in ViewBag.CarbonBurialList)
                         {
                             @if (item.BurialId == item2.BurialId)
                             {
                                 <a style="font-size:x-small" target="_blank" href="/Carbon2/Details/@item2.CarbonId"><span class="material-icons">biotech</span>@item2.CarbonId<hr style="position:relative; bottom: 10px" /></a>
-                                
+
                             }
                         }
                     </td>
@@ -165,7 +217,7 @@ else
                         }
                     </td>
                     <td>
-                        @if (item.BurialDepth == null  || item.BurialDepth == "" || item.BurialDepth == "U" || item.BurialDepth == "NA")
+                        @if (item.BurialDepth == null || item.BurialDepth == "" || item.BurialDepth == "U" || item.BurialDepth == "NA")
                         {
                             @Html.Raw("")
                         }
@@ -292,6 +344,11 @@ else
     </table>
 </div>
 
+
+
+
+
+
 @*<div page-info="@Model.PageNumberingInfo"
          page-classes-enabled="true"
          page-class="btn"
@@ -336,6 +393,18 @@ else
             });
 
         });
+
+        $('#loaderDiv').fadeOut(2200);
+        $('#tableDiv').slideUp(300).delay(2600).fadeIn(400);
+
+
+
+
+
+
+
+
+
 
 
 
