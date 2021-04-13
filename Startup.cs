@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Fag_el_Gamous.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Fag_el_Gamous.Data;
 
 namespace Fag_el_Gamous
 {
@@ -38,7 +39,7 @@ namespace Fag_el_Gamous
 
             //services.AddDbContext<IdentityContext>(opts =>
             //   opts.UseNpgsql(Configuration[
-            //       "ConnectionStrings:IdentityConnection"]));
+            //       "ConnectionStrings:IdentityContextConnection"]));
             //services.AddIdentity<IdentityUser, IdentityRole>()
             //   .AddEntityFrameworkStores<IdentityContext>();
 
@@ -48,6 +49,11 @@ namespace Fag_el_Gamous
             services.AddDbContext<waterbuffaloContext>(options =>
             {
                 options.UseNpgsql(Configuration["ConnectionStrings:postgresConnection"]);
+            });
+
+            services.AddDbContext<Models.authenticationContext>(options =>
+            {
+                options.UseNpgsql(Configuration["ConnectionStrings:IdentityContextConnection"]);
             });
 
 

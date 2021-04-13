@@ -1,6 +1,7 @@
 ﻿using System;
 using Fag_el_Gamous.Areas.Identity.Data;
 using Fag_el_Gamous.Data;
+using Fag_el_Gamous.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -16,12 +17,12 @@ namespace Fag_el_Gamous.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
-                services.AddDbContext<IdentityContext>(options =>
+                services.AddDbContext<Models.authenticationContext>(options =>
                     options.UseNpgsql(
                         context.Configuration.GetConnectionString("IdentityContextConnection")));
 
                 services.AddDefaultIdentity<Fag_el_GamousUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<IdentityContext>();
+                    .AddEntityFrameworkStores<Models.authenticationContext>();
             });
         }
     }

@@ -9,20 +9,23 @@ using Fag_el_Gamous.Models;
 using Fag_el_Gamous.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Fag_el_Gamous.Models.Filtering;
+using Fag_el_Gamous.Data;
 
 namespace Fag_el_Gamous
 {
     public class MasterBurial2Controller : Controller
     {
         private readonly waterbuffaloContext _context;
+        private readonly Models.authenticationContext id_context;
 
-        public MasterBurial2Controller(waterbuffaloContext context)
+        public MasterBurial2Controller(waterbuffaloContext context, Models.authenticationContext ctx)
         {
             _context = context;
+            id_context = ctx;
         }
 
         // GET: MasterBurial2
-        
+
         public async Task<IActionResult> Index(Filter filter, int? burialId, int pageNum = 1)
         {
             //creates a list of Carbons with Burial IDs (so we can link them in the view)
@@ -33,10 +36,6 @@ namespace Fag_el_Gamous
              ViewBag.SampleBurialList = _context.Samples2
                 .Where(c => c.BurialId != null)
                 .ToList();
-
-            //ViewBag.Sample = _context.Samples2
-            //    .Where(c => c.BurialId != null)
-            //    .ToList();
 
 
             var filterLogic = new FilterLogic(_context);
@@ -57,31 +56,31 @@ namespace Fag_el_Gamous
             }
 
             //ViewBag of the different people that have Authorization to Edit and Delete
-            ViewBag.AdminList = _context.AspNetUsers
+            ViewBag.AdminList = id_context.AspNetUsers
                 .Where(b => b.isAdmin == true)
                 .ToList();
 
 
-            ViewBag.ResearchList = _context.AspNetUsers
+            ViewBag.ResearchList = id_context.AspNetUsers
                 .Where(c => c.isResearcher == true)
                 .ToList();
 
-            ViewBag.CurrentUser = _context.AspNetUsers
+            ViewBag.CurrentUser = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
 
-            var isAdmin = _context.AspNetUsers
+            var isAdmin = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
-            foreach(var thing in isAdmin)
+            foreach (var thing in isAdmin)
             {
-                if( thing.isAdmin == true )
+                if (thing.isAdmin == true)
                 {
                     ViewData["isAdmin"] = true;
                 }
             }
 
-            var isResearcher = _context.AspNetUsers
+            var isResearcher = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach (var thing in isResearcher)
@@ -92,15 +91,15 @@ namespace Fag_el_Gamous
                 }
             }
 
-            
 
 
-            //int b = 0;
-            //foreach (var item in (_context.AspNetUsers.Where(c => c.isAdmin == true).ToList()))
-            //{
-            //    ViewData[$"UserName{b}"] = $"{item.UserName}";
-            //    b = b + 1;
-            //}
+
+            //////int b = 0;
+            //////foreach (var item in (id_context.AspNetUsers.Where(c => c.isAdmin == true).ToList()))
+            //////{
+            //////    ViewData[$"UserName{b}"] = $"{item.UserName}";
+            //////    b = b + 1;
+            //////}
 
 
 
@@ -108,14 +107,11 @@ namespace Fag_el_Gamous
 
             return View(new PaginationViewModel
             {
-                //Carbons = ((IQueryable<Carbon2>)_context.Carbon2.Include(c => c.Burial).ToListAsync()),
 
 
 
                 Burials = (queryModel
-                    //.Where(c => c.BurialId == burialId || burialId == null)
                     .Skip(skip)
-                    //.Skip((pageNum - 1) * pageSize)
                     .Take(pageSize)
                     .ToList()),
 
@@ -131,7 +127,6 @@ namespace Fag_el_Gamous
                 UrlInfo = Request.QueryString.Value
             });
 
-            //return View(await _context.MasterBurial2.ToListAsync());
         }
 
         // GET: MasterBurial2/Details/5
@@ -159,18 +154,18 @@ namespace Fag_el_Gamous
         [Authorize]
         public IActionResult Create()
         {
-            var isAdmin = _context.AspNetUsers
+            var isAdmin = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
-            foreach(var thing in isAdmin)
+            foreach (var thing in isAdmin)
             {
-                if( thing.isAdmin == true )
+                if (thing.isAdmin == true)
                 {
                     ViewData["isAdmin"] = true;
                 }
             }
 
-            var isResearcher = _context.AspNetUsers
+            var isResearcher = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach (var thing in isResearcher)
@@ -204,18 +199,18 @@ namespace Fag_el_Gamous
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
-            var isAdmin = _context.AspNetUsers
+            var isAdmin = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
-            foreach(var thing in isAdmin)
+            foreach (var thing in isAdmin)
             {
-                if( thing.isAdmin == true )
+                if (thing.isAdmin == true)
                 {
                     ViewData["isAdmin"] = true;
                 }
             }
 
-            var isResearcher = _context.AspNetUsers
+            var isResearcher = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach (var thing in isResearcher)
@@ -279,12 +274,12 @@ namespace Fag_el_Gamous
         [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
-            var isAdmin = _context.AspNetUsers
+            var isAdmin = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
-            foreach(var thing in isAdmin)
+            foreach (var thing in isAdmin)
             {
-                if( thing.isAdmin == true )
+                if (thing.isAdmin == true)
                 {
                     ViewData["isAdmin"] = true;
                 }

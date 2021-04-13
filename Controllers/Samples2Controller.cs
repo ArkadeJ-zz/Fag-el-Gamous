@@ -10,16 +10,19 @@ using Fag_el_Gamous.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Fag_el_Gamous.Models.Filtering.FilteringSample;
 using Fag_el_Gamous.Models.Filtering;
+using Fag_el_Gamous.Data;
 
 namespace Fag_el_Gamous.Controllers
 {
     public class Samples2Controller : Controller
     {
         private readonly waterbuffaloContext _context;
+        private readonly Models.authenticationContext id_context;
 
-        public Samples2Controller(waterbuffaloContext context)
+        public Samples2Controller(waterbuffaloContext context, Models.authenticationContext ctx)
         {
             _context = context;
+            id_context = ctx;
         }
 
         // GET: Samples2
@@ -29,8 +32,8 @@ namespace Fag_el_Gamous.Controllers
             var filterSampleLogic = new FilterSampleLogic(_context);
 
             var queryModel = filterSampleLogic.GetSamples(filter);
-            
-            var isAdmin = _context.AspNetUsers
+
+            var isAdmin = id_context.AspNetUsers
                  .Where(c => c.UserName == User.Identity.Name);
 
             foreach (var thing in isAdmin)
@@ -41,7 +44,7 @@ namespace Fag_el_Gamous.Controllers
                 }
             }
 
-            var isResearcher = _context.AspNetUsers
+            var isResearcher = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach (var thing in isResearcher)
@@ -71,7 +74,6 @@ namespace Fag_el_Gamous.Controllers
 
 
                 Samples = (queryModel
-                    //.Where(c => c.SampleId == sampleId || sampleId == null)
                     .Skip(skip)
                     .Take(pageSize)
                     .ToList()),
@@ -89,8 +91,6 @@ namespace Fag_el_Gamous.Controllers
             });
 
 
-            //var waterbuffaloContext = _context.Samples2.Include(s => s.Burial);
-            //return View(await waterbuffaloContext.ToListAsync());
         }
 
         // GET: Samples2/Details/5
@@ -121,18 +121,18 @@ namespace Fag_el_Gamous.Controllers
         [Authorize]
         public IActionResult Create(int Id)
         {
-            var isAdmin = _context.AspNetUsers
+            var isAdmin = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
-            foreach(var thing in isAdmin)
+            foreach (var thing in isAdmin)
             {
-                if( thing.isAdmin == true )
+                if (thing.isAdmin == true)
                 {
                     ViewData["isAdmin"] = true;
                 }
             }
 
-            var isResearcher = _context.AspNetUsers
+            var isResearcher = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach (var thing in isResearcher)
@@ -156,7 +156,7 @@ namespace Fag_el_Gamous.Controllers
         {
             if (ModelState.IsValid)
             {
-                //samples2.BurialId = ViewBag.Id;
+                //////samples2.BurialId = ViewBag.Id;
                 _context.Add(samples2);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -169,18 +169,18 @@ namespace Fag_el_Gamous.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
-            var isAdmin = _context.AspNetUsers
+            var isAdmin = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
-            foreach(var thing in isAdmin)
+            foreach (var thing in isAdmin)
             {
-                if( thing.isAdmin == true )
+                if (thing.isAdmin == true)
                 {
                     ViewData["isAdmin"] = true;
                 }
             }
 
-            var isResearcher = _context.AspNetUsers
+            var isResearcher = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach (var thing in isResearcher)
@@ -245,12 +245,12 @@ namespace Fag_el_Gamous.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
-            var isAdmin = _context.AspNetUsers
+            var isAdmin = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
-            foreach(var thing in isAdmin)
+            foreach (var thing in isAdmin)
             {
-                if( thing.isAdmin == true )
+                if (thing.isAdmin == true)
                 {
                     ViewData["isAdmin"] = true;
                 }

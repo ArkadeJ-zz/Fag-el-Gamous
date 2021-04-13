@@ -15,10 +15,12 @@ namespace Fag_el_Gamous.Controllers
     public class Carbon2Controller : Controller
     {
         private readonly waterbuffaloContext _context;
+        private readonly authenticationContext id_context;
 
-        public Carbon2Controller(waterbuffaloContext context)
+        public Carbon2Controller(waterbuffaloContext context, authenticationContext ctx)
         {
             _context = context;
+            id_context = ctx;
         }
 
         // GET: Carbon2
@@ -40,18 +42,18 @@ namespace Fag_el_Gamous.Controllers
                 .ToList();
 
 
-            var isAdmin = _context.AspNetUsers
+            var isAdmin = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
-            foreach(var thing in isAdmin)
+            foreach (var thing in isAdmin)
             {
-                if( thing.isAdmin == true )
+                if (thing.isAdmin == true)
                 {
                     ViewData["isAdmin"] = true;
                 }
             }
 
-            var isResearcher = _context.AspNetUsers
+            var isResearcher = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach (var thing in isResearcher)
@@ -76,15 +78,13 @@ namespace Fag_el_Gamous.Controllers
 
             return View(new PaginationViewModel
             {
-                //Carbons = ((IQueryable<Carbon2>)_context.Carbon2.Include(c => c.Burial).ToListAsync()),
 
                 
 
-            Carbons = (queryModel
-                    //.Where(c => c.CarbonId == carbonId || carbonId == null)
-                    .Skip(skip)
-                    .Take(pageSize)
-                    .ToList()),
+                Carbons = (queryModel
+                        .Skip(skip)
+                        .Take(pageSize)
+                        .ToList()),
 
                 PageNumberingInfo = new PageNumberingInfo
                 {
@@ -97,11 +97,7 @@ namespace Fag_el_Gamous.Controllers
 
                 UrlInfo = Request.QueryString.Value
             });
-
-
-
-            //var waterbuffaloContext = _context.Carbon2.Include(c => c.Burial);
-            //return View(await waterbuffaloContext.ToListAsync());
+;
         }
 
         // GET: Carbon2/Details/5
@@ -128,18 +124,18 @@ namespace Fag_el_Gamous.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            var isAdmin = _context.AspNetUsers
+            var isAdmin = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
-            foreach(var thing in isAdmin)
+            foreach (var thing in isAdmin)
             {
-                if( thing.isAdmin == true )
+                if (thing.isAdmin == true)
                 {
                     ViewData["isAdmin"] = true;
                 }
             }
 
-            var isResearcher = _context.AspNetUsers
+            var isResearcher = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach (var thing in isResearcher)
@@ -177,18 +173,18 @@ namespace Fag_el_Gamous.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
-            var isAdmin = _context.AspNetUsers
+            var isAdmin = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
-            foreach(var thing in isAdmin)
+            foreach (var thing in isAdmin)
             {
-                if( thing.isAdmin == true )
+                if (thing.isAdmin == true)
                 {
                     ViewData["isAdmin"] = true;
                 }
             }
 
-            var isResearcher = _context.AspNetUsers
+            var isResearcher = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach (var thing in isResearcher)
@@ -254,18 +250,18 @@ namespace Fag_el_Gamous.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
-            var isAdmin = _context.AspNetUsers
+            var isAdmin = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
-            foreach(var thing in isAdmin)
+            foreach (var thing in isAdmin)
             {
-                if( thing.isAdmin == true )
+                if (thing.isAdmin == true)
                 {
                     ViewData["isAdmin"] = true;
                 }
             }
 
-            var isResearcher = _context.AspNetUsers
+            var isResearcher = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach (var thing in isResearcher)
