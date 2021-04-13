@@ -27,11 +27,6 @@ namespace Fag_el_Gamous.Controllers
         }
 
 
-
-
-
-
-
         public IActionResult Privacy()
         {
             return View();
