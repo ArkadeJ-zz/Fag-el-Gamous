@@ -28,6 +28,7 @@ namespace Fag_el_Gamous.Models
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Carbon2> Carbon2 { get; set; }
         public virtual DbSet<MasterBurial2> MasterBurial2 { get; set; }
+        public virtual DbSet<Photos> Photos { get; set; }
         public virtual DbSet<Samples2> Samples2 { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -755,6 +756,31 @@ namespace Fag_el_Gamous.Models
                     .HasColumnType("character varying");
 
                 entity.Property(e => e.ZygomaticCrest).HasColumnName("zygomatic_crest");
+            });
+
+            modelBuilder.Entity<Photos>(entity =>
+            {
+                entity.HasKey(e => e.PhotoId)
+                    .HasName("photos_pkey");
+
+                entity.ToTable("photos");
+
+                entity.Property(e => e.PhotoId)
+                    .HasColumnName("photo_id")
+                    .HasIdentityOptions(25L, null, null, null, null, null)
+                    .UseIdentityAlwaysColumn();
+
+                entity.Property(e => e.BurialId).HasColumnName("burial_id");
+
+                entity.Property(e => e.UrlLink)
+                    .HasColumnName("url_link")
+                    .HasColumnType("character varying");
+
+                entity.HasOne(d => d.Burial)
+                    .WithMany(p => p.Photos)
+                    .HasForeignKey(d => d.BurialId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("burial_id");
             });
 
             modelBuilder.Entity<Samples2>(entity =>

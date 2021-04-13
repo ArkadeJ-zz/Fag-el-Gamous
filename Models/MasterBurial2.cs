@@ -12,6 +12,7 @@ namespace Fag_el_Gamous.Models
         public MasterBurial2()
         {
             Carbon2 = new HashSet<Carbon2>();
+            Photos = new HashSet<Photos>();
             Samples2 = new HashSet<Samples2>();
         }
 
@@ -154,6 +155,7 @@ namespace Fag_el_Gamous.Models
         public string OsteologyNotes { get; set; }
 
         public virtual ICollection<Carbon2> Carbon2 { get; set; }
+        public virtual ICollection<Photos> Photos { get; set; }
         public virtual ICollection<Samples2> Samples2 { get; set; }
     }
 }
