@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Fag_el_Gamous.Migrations
 {
     [DbContext(typeof(waterbuffaloContext))]
-    [Migration("20210412163022_Initial")]
+    [Migration("20210413210755_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -905,6 +905,31 @@ namespace Fag_el_Gamous.Migrations
                     b.ToTable("master_burial2");
                 });
 
+            modelBuilder.Entity("Fag_el_Gamous.Models.Photos", b =>
+                {
+                    b.Property<int>("PhotoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("photo_id")
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:IdentitySequenceOptions", "'25', '1', '', '', 'False', '1'")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn);
+
+                    b.Property<int?>("BurialId")
+                        .HasColumnName("burial_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UrlLink")
+                        .HasColumnName("url_link")
+                        .HasColumnType("character varying");
+
+                    b.HasKey("PhotoId")
+                        .HasName("photos_pkey");
+
+                    b.HasIndex("BurialId");
+
+                    b.ToTable("photos");
+                });
+
             modelBuilder.Entity("Fag_el_Gamous.Models.Samples2", b =>
                 {
                     b.Property<int>("SampleId")
@@ -1057,6 +1082,15 @@ namespace Fag_el_Gamous.Migrations
                 {
                     b.HasOne("Fag_el_Gamous.Models.MasterBurial2", "Burial")
                         .WithMany("Carbon2")
+                        .HasForeignKey("BurialId")
+                        .HasConstraintName("burial_id")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Fag_el_Gamous.Models.Photos", b =>
+                {
+                    b.HasOne("Fag_el_Gamous.Models.MasterBurial2", "Burial")
+                        .WithMany("Photos")
                         .HasForeignKey("BurialId")
                         .HasConstraintName("burial_id")
                         .OnDelete(DeleteBehavior.Cascade);

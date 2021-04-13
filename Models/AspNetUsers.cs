@@ -32,8 +32,8 @@ namespace Fag_el_Gamous.Models
         public DateTime? LockoutEnd { get; set; }
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
-        public bool? isResearcher { get; set; }
         public bool? isAdmin { get; set; }
+        public bool? isResearcher { get; set; }
 
         public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }

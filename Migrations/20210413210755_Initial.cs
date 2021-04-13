@@ -41,8 +41,8 @@ namespace Fag_el_Gamous.Migrations
                     LockoutEnd = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    isResearcher = table.Column<bool>(nullable: true),
-                    isAdmin = table.Column<bool>(nullable: true)
+                    isAdmin = table.Column<bool>(nullable: true),
+                    isResearcher = table.Column<bool>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -351,6 +351,27 @@ namespace Fag_el_Gamous.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "photos",
+                columns: table => new
+                {
+                    photo_id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:IdentitySequenceOptions", "'25', '1', '', '', 'False', '1'")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
+                    burial_id = table.Column<int>(nullable: true),
+                    url_link = table.Column<string>(type: "character varying", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("photos_pkey", x => x.photo_id);
+                    table.ForeignKey(
+                        name: "burial_id",
+                        column: x => x.burial_id,
+                        principalTable: "master_burial2",
+                        principalColumn: "burial_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "samples2",
                 columns: table => new
                 {
@@ -432,6 +453,11 @@ namespace Fag_el_Gamous.Migrations
                 column: "burial_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_photos_burial_id",
+                table: "photos",
+                column: "burial_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_samples2_burial_id",
                 table: "samples2",
                 column: "burial_id");
@@ -456,6 +482,9 @@ namespace Fag_el_Gamous.Migrations
 
             migrationBuilder.DropTable(
                 name: "carbon2");
+
+            migrationBuilder.DropTable(
+                name: "photos");
 
             migrationBuilder.DropTable(
                 name: "samples2");
