@@ -89,7 +89,9 @@ else
     <table class="table table-striped" id="table">
         <thead>
             <tr>
-                <th></th>
+                <th>Linked Bio Sample</th>
+                <th>Linked C14 Sample</th>
+                <th>Details</th>
                 <th>
                     Location
                 </th>
@@ -112,6 +114,9 @@ else
                     Length Of Remains
                 </th>
                 <th>
+                    Hair Color
+                </th>
+                <th>
                     Burial Situation
                 </th>
                 <th></th>
@@ -122,8 +127,28 @@ else
             @foreach (var item in Model.Burials)
             {
                 <tr>
+                    <td >
+                        @foreach (var item2 in ViewBag.SampleBurialList)
+                        {
+                            @if (item.BurialId == item2.BurialId)
+                            {
+                                <a style="font-size:x-small" target="_blank" href="/Samples2/Details/@item2.SampleId"><span class="material-icons">science</span>@item2.SampleId<hr style="position:relative; bottom: 10px" /></a>
+                                
+                            }
+                        }
+                    </td>
+                    <td >
+                        @foreach (var item2 in ViewBag.CarbonBurialList)
+                        {
+                            @if (item.BurialId == item2.BurialId)
+                            {
+                                <a style="font-size:x-small" target="_blank" href="/Carbon2/Details/@item2.CarbonId"><span class="material-icons">biotech</span>@item2.CarbonId<hr style="position:relative; bottom: 10px" /></a>
+                                
+                            }
+                        }
+                    </td>
                     <td>
-                        <a asp-action="Details" asp-route-id="@item.BurialId"><span class="material-icons">file_present</span> </a>
+                        <a asp-action="Details" asp-route-id="@item.BurialId"><span class="material-icons">description</span> </a>
                     </td>
                     <td>
                         @if ((item.LowPairNs == null && item.LowPairEw == null) || item.LocConcat == "#VALUE!" || item.LocConcat == "#REF!" || item.LocConcat == "null")
@@ -137,7 +162,14 @@ else
                         }
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.BurialDepth)
+                        @if (item.BurialDepth == null  || item.BurialDepth == "" || item.BurialDepth == "U" || item.BurialDepth == "NA")
+                        {
+                            @Html.Raw("")
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.BurialDepth)
+                        }
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.SouthToHead)
@@ -153,6 +185,30 @@ else
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.LengthOfRemains)
+                    </td>
+                    <td>
+                        @if (item.Burialhaircolor is null || item.Burialhaircolor == "")
+                        {
+                            @if (item.HairColor is null || item.HairColor == "")
+                            {
+                                @if (item.Haircolor1 is null || item.Haircolor1 == "")
+                                {
+                                    @Html.Raw("Unknown")
+                                }
+                                else
+                                {
+                                    @item.Haircolor1.ToUpper()
+                                }
+                            }
+                            else
+                            {
+                                @item.HairColor.ToUpper()
+                            }
+                        }
+                        else
+                        {
+                            @item.Burialhaircolor.ToUpper()
+                        }
                     </td>
                     <td>
                         @*@if (item.BurialSituation == null || item.BurialSituation.Length < 20)
@@ -224,7 +280,7 @@ else
                     {
                         "searchable": false,
                         "orderable": false,
-                        targets: [0, 9, 10],
+                        targets: [2, 3, 12, 13],
                     },
                     {
                         "className": "text-left",
@@ -233,6 +289,7 @@ else
                     },
 
                 ],
+
 
 
             });

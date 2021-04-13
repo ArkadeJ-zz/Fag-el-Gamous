@@ -25,6 +25,20 @@ namespace Fag_el_Gamous
         
         public async Task<IActionResult> Index(Filter filter, int? burialId, int pageNum = 1)
         {
+            //creates a list of Carbons with Burial IDs (so we can link them in the view)
+            ViewBag.CarbonBurialList = _context.Carbon2
+                .Where(c => c.BurialId != null)
+                .ToList();
+
+             ViewBag.SampleBurialList = _context.Samples2
+                .Where(c => c.BurialId != null)
+                .ToList();
+
+            //ViewBag.Sample = _context.Samples2
+            //    .Where(c => c.BurialId != null)
+            //    .ToList();
+
+
             var filterLogic = new FilterLogic(_context);
 
             var queryModel = filterLogic.GetMummies(filter);

@@ -83,7 +83,9 @@ else
     <table class="table table-striped" id="table">
         <thead>
             <tr>
-                <th></th>
+                <th>Linked Burial Record</th>
+                <th>Details</th>
+
                 <th>
                     Location
                 </th>
@@ -98,6 +100,7 @@ else
                 </th>
                 <th></th>
                 <th></th>
+
             </tr>
         </thead>
         <tbody>
@@ -106,9 +109,20 @@ else
 
 
                 <tr>
-                    <td>
-                        <a asp-action="Details" asp-route-id="@item.CarbonId"><span class="material-icons">file_present</span> </a>
+                     <td>
+                        @foreach (var item2 in ViewBag.MasterBurialList)
+                        {
+
+                            @if (item.BurialId == item2.BurialId)
+                            {
+                            <a style="font-size:x-small" target="_blank" href="/MasterBurial2/Details/@item.BurialId"><span class="material-icons">file_present</span>@item.BurialId</a>
+                            }
+                        }
                     </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.CarbonId"><span class="material-icons">description</span> </a>
+                    </td>
+
                     <td>
                         @if ((item.LocationNs == null && item.LocationEw == null) || item.LocConcat == "#VALUE!" || item.LocConcat == "#REF!" || item.LocConcat == "null")
                         {
@@ -158,6 +172,7 @@ else
                             <span rel="tooltip" data-placement="bottom" data-original-title="Only Admins can Delete Records" class="material-icons">delete_forever</span>
                         }
                     </td>
+
                 </tr>
 
             }
@@ -194,7 +209,7 @@ else
                     {
                         "searchable": false,
                         "orderable": false,
-                        targets: [0, 5, 6],
+                        targets: [0, 1, 6, 7],
                     },
                     {
                         "className": "text-left",
