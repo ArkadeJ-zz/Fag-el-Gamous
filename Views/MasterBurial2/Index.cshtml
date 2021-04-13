@@ -13,7 +13,7 @@
 
 
 <div id="accordion">
-    @*Filter accordion*@
+    @*Tips accordion*@
     <div class="card bg-light">
         <div class="text-black" id="headingTwo">
             <h5 class="mb-0">
@@ -26,10 +26,13 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
             <div class="card-body" style="column-count:2">
                 <div style="color:black">
-                    <ul>
-                        <li>Using the <b>filter</b> pane below, you can first filter all the records that are displayed in the table below.</li>
-                        <li>Once filtered, the <b>search bar</b> above the table is an extremely powerful tool to find detailed results. "Quotes" can be used when searching for exact definitions. Otherwise case, and order is ignored to help you query the data.</li>
-                    </ul>
+                    
+                        <p>Using the <b>filter</b> pane below, you can first filter all the records that are displayed in the table below.</p>
+                        <p>Once filtered, the <b>search bar</b> above the table is an extremely powerful tool to find detailed results. "Quotes" can be used when searching for exact definitions.
+                        Otherwise case, and order is ignored to help you query the data.</p>
+                        <p>Clicking on the <b>arrows</b> next to the column name will sort by ascending or descending order.</p>
+                    
+                    <br />
                 </div>
             </div>
         </div>
@@ -99,16 +102,16 @@ else
                     Burial Depth
                 </th>
                 <th>
-                    South To Head
+                    S To Head
                 </th>
                 <th>
-                    South To Feet
+                    S To Feet
                 </th>
                 <th>
-                    West To Head
+                    W To Head
                 </th>
                 <th>
-                    West To Feet
+                    W To Feet
                 </th>
                 <th>
                     Length Of Remains
@@ -172,28 +175,66 @@ else
                         }
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.SouthToHead)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SouthToFeet)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.WestToHead)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.WestToFeet)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LengthOfRemains)
-                    </td>
-                    <td>
-                        @if (item.Burialhaircolor is null || item.Burialhaircolor == "")
+                        @if (item.SouthToHead == null || item.SouthToHead == "" || item.SouthToHead == "U" || item.SouthToHead == "NA")
                         {
-                            @if (item.HairColor is null || item.HairColor == "")
+                            @Html.Raw("")
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.SouthToHead)
+                        }
+
+                    </td>
+                    <td>
+                        @if (item.SouthToFeet == null || item.SouthToFeet == "" || item.SouthToFeet == "U" || item.SouthToFeet == "NA")
+                        {
+                            @Html.Raw("")
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.SouthToFeet)
+                        }
+
+                    </td>
+                    <td>
+                        @if (item.WestToHead == null || item.WestToHead == "" || item.WestToHead == "U" || item.WestToHead == "NA")
+                        {
+                            @Html.Raw("")
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.WestToHead)
+                        }
+
+                    </td>
+                    <td>
+                        @if (item.WestToFeet == null || item.WestToFeet == "" || item.WestToFeet == "U" || item.WestToFeet == "NA")
+                        {
+                            @Html.Raw("")
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.WestToFeet)
+                        }
+                    </td>
+                    <td>
+                        @if (item.LengthOfRemains == null || item.LengthOfRemains == "" || item.LengthOfRemains == "U" || item.LengthOfRemains == "NA")
+                        {
+                            @Html.Raw("")
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.LengthOfRemains)
+                        }
+                    </td>
+                    <td>
+                        @if (item.Burialhaircolor is null || item.Burialhaircolor == "" || item.Burialhaircolor == "U")
+                        {
+                            @if (item.HairColor is null || item.HairColor == "" || item.HairColor == "U")
                             {
-                                @if (item.Haircolor1 is null || item.Haircolor1 == "")
+                                @if (item.Haircolor1 is null || item.Haircolor1 == "" || item.Haircolor1 == "U")
                                 {
-                                    @Html.Raw("Unknown")
+                                    @Html.Raw("")
                                 }
                                 else
                                 {
