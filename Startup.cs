@@ -54,6 +54,11 @@ namespace Fag_el_Gamous
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            //services.ConfigureApplicationCookie(options =>
+            //{
+            //    options.LoginPath = "/"
+
+
             //services.AddAuthentication()
             //    .AddGoogle(options =>
             //    {
@@ -69,7 +74,35 @@ namespace Fag_el_Gamous
             //        //options.ClientSecret = googleAuthNSection["ClientSecret"];
             //    });
 
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = true;
+               
+
+
+
+            });
+
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+
+                options.SlidingExpiration = true;
+
+            });
+
+
+
+
         }
+
+        
+
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
