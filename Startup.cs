@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Fag_el_Gamous.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Fag_el_Gamous.Data;
 
 namespace Fag_el_Gamous
 {
@@ -47,7 +48,12 @@ namespace Fag_el_Gamous
 
             services.AddDbContext<waterbuffaloContext>(options =>
             {
-                options.UseNpgsql(Configuration["ConnectionStrings:postgresConnection"]);
+                options.UseSqlServer(Configuration["ConnectionStrings:sqlServerConnection"]);
+            });
+
+            services.AddDbContext<IdentityContext>(options =>
+            {
+                options.UseSqlServer(Configuration["ConnectionStrings:IdentityConnection"]);
             });
 
 

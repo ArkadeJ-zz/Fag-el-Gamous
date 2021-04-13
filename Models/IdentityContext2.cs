@@ -8,4 +8,6 @@ namespace Fag_el_Gamous.Models
         public IdentityContext2(DbContextOptions<IdentityContext2> options)
         : base(options) { }
     }
+
+
 }

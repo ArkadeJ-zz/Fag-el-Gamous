@@ -37,7 +37,5 @@ namespace Fag_el_Gamous.Models
         public string Calibrated95PercentCalendarDateAvg { get; set; }
         public string Category { get; set; }
         public string Notes { get; set; }
-
-        public virtual MasterBurial2 Burial { get; set; }
     }
 }

@@ -10,6 +10,7 @@ using Fag_el_Gamous.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Fag_el_Gamous.Models.Filtering.FilteringSample;
 using Fag_el_Gamous.Models.Filtering;
+using Fag_el_Gamous.Data;
 
 namespace Fag_el_Gamous.Controllers
 {
@@ -17,9 +18,12 @@ namespace Fag_el_Gamous.Controllers
     {
         private readonly waterbuffaloContext _context;
 
-        public Samples2Controller(waterbuffaloContext context)
+        private readonly IdentityContext id_context;
+
+        public Samples2Controller(waterbuffaloContext context, IdentityContext ctx)
         {
             _context = context;
+            id_context = ctx;
         }
 
         // GET: Samples2
@@ -30,7 +34,7 @@ namespace Fag_el_Gamous.Controllers
 
             var queryModel = filterSampleLogic.GetSamples(filter);
             
-            var isAdmin = _context.AspNetUsers
+            var isAdmin = id_context.AspNetUsers
                  .Where(c => c.UserName == User.Identity.Name);
 
             foreach (var thing in isAdmin)
@@ -41,7 +45,7 @@ namespace Fag_el_Gamous.Controllers
                 }
             }
 
-            var isResearcher = _context.AspNetUsers
+            var isResearcher = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach (var thing in isResearcher)
@@ -88,9 +92,6 @@ namespace Fag_el_Gamous.Controllers
                 UrlInfo = Request.QueryString.Value
             });
 
-
-            //var waterbuffaloContext = _context.Samples2.Include(s => s.Burial);
-            //return View(await waterbuffaloContext.ToListAsync());
         }
 
         // GET: Samples2/Details/5
@@ -103,14 +104,14 @@ namespace Fag_el_Gamous.Controllers
             }
 
             var samples2 = await _context.Samples2
-                .Include(s => s.Burial)
+                .Include(s => s.BurialId)
                 .FirstOrDefaultAsync(m => m.SampleId == id);
             if (samples2 == null)
             {
                 return NotFound();
             }
 
-           
+
 
 
             return View(samples2);
@@ -121,7 +122,7 @@ namespace Fag_el_Gamous.Controllers
         [Authorize]
         public IActionResult Create(int Id)
         {
-            var isAdmin = _context.AspNetUsers
+            var isAdmin = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach(var thing in isAdmin)
@@ -132,7 +133,7 @@ namespace Fag_el_Gamous.Controllers
                 }
             }
 
-            var isResearcher = _context.AspNetUsers
+            var isResearcher = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach (var thing in isResearcher)
@@ -169,7 +170,7 @@ namespace Fag_el_Gamous.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
-            var isAdmin = _context.AspNetUsers
+            var isAdmin = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach(var thing in isAdmin)
@@ -180,7 +181,7 @@ namespace Fag_el_Gamous.Controllers
                 }
             }
 
-            var isResearcher = _context.AspNetUsers
+            var isResearcher = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach (var thing in isResearcher)
@@ -245,7 +246,7 @@ namespace Fag_el_Gamous.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
-            var isAdmin = _context.AspNetUsers
+            var isAdmin = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach(var thing in isAdmin)
@@ -265,7 +266,7 @@ namespace Fag_el_Gamous.Controllers
             }
 
             var samples2 = await _context.Samples2
-                .Include(s => s.Burial)
+                .Include(s => s.BurialId)
                 .FirstOrDefaultAsync(m => m.SampleId == id);
             if (samples2 == null)
             {

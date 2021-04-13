@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Fag_el_Gamous.Models;
+using Fag_el_Gamous.Data;
 
 namespace Fag_el_Gamous.Controllers
 {
@@ -13,19 +14,22 @@ namespace Fag_el_Gamous.Controllers
     {
         private readonly waterbuffaloContext _context;
 
-        public AspNetUsersController(waterbuffaloContext context)
+        private readonly IdentityContext id_context;
+
+        public AspNetUsersController(waterbuffaloContext context, IdentityContext ctx)
         {
             _context = context;
+            id_context = ctx;
         }
 
         // GET: AspNetUsers
         public async Task<IActionResult> Index()
         {
-            ViewBag.AdminList = _context.AspNetUsers
+            ViewBag.AdminList = id_context.AspNetUsers
                 .Where(c => c.isAdmin == true)
                 .ToList();
 
-            var isAdmin = _context.AspNetUsers
+            var isAdmin = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach(var thing in isAdmin)
@@ -37,7 +41,7 @@ namespace Fag_el_Gamous.Controllers
             }
 
 
-            return View(await _context.AspNetUsers.ToListAsync());
+            return View(await id_context.AspNetUsers.ToListAsync());
         }
 
         // GET: AspNetUsers/Details/5
@@ -48,7 +52,7 @@ namespace Fag_el_Gamous.Controllers
                 return NotFound();
             }
 
-            var aspNetUsers = await _context.AspNetUsers
+            var aspNetUsers = await id_context.AspNetUsers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (aspNetUsers == null)
             {
@@ -83,11 +87,11 @@ namespace Fag_el_Gamous.Controllers
         // GET: AspNetUsers/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            ViewBag.AdminList = _context.AspNetUsers
+            ViewBag.AdminList = id_context.AspNetUsers
                 .Where(c => c.isAdmin == true)
                 .ToList();
 
-           var isAdmin = _context.AspNetUsers
+           var isAdmin = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach(var thing in isAdmin)
@@ -104,7 +108,7 @@ namespace Fag_el_Gamous.Controllers
                 return NotFound();
             }
 
-            var aspNetUsers = await _context.AspNetUsers.FindAsync(id);
+            var aspNetUsers = await id_context.AspNetUsers.FindAsync(id);
             if (aspNetUsers == null)
             {
                 return NotFound();
@@ -157,7 +161,7 @@ namespace Fag_el_Gamous.Controllers
                 return NotFound();
             }
 
-            var aspNetUsers = await _context.AspNetUsers
+            var aspNetUsers = await id_context.AspNetUsers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (aspNetUsers == null)
             {
@@ -172,15 +176,15 @@ namespace Fag_el_Gamous.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var aspNetUsers = await _context.AspNetUsers.FindAsync(id);
-            _context.AspNetUsers.Remove(aspNetUsers);
+            var aspNetUsers = await id_context.AspNetUsers.FindAsync(id);
+            id_context.AspNetUsers.Remove(aspNetUsers);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool AspNetUsersExists(string id)
         {
-            return _context.AspNetUsers.Any(e => e.Id == id);
+            return id_context.AspNetUsers.Any(e => e.Id == id);
         }
     }
 }

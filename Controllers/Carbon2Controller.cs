@@ -9,16 +9,19 @@ using Fag_el_Gamous.Models;
 using Fag_el_Gamous.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Fag_el_Gamous.Models.Filtering.FilteringCarbon;
+using Fag_el_Gamous.Data;
 
 namespace Fag_el_Gamous.Controllers
 {
     public class Carbon2Controller : Controller
     {
         private readonly waterbuffaloContext _context;
+        private readonly IdentityContext id_context;
 
-        public Carbon2Controller(waterbuffaloContext context)
+        public Carbon2Controller(waterbuffaloContext context, IdentityContext ctx)
         {
             _context = context;
+            id_context = ctx;
         }
 
         // GET: Carbon2
@@ -29,7 +32,7 @@ namespace Fag_el_Gamous.Controllers
 
             var queryModel = filterCarbonLogic.GetCarbons(filter);
             
-            var isAdmin = _context.AspNetUsers
+            var isAdmin = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach(var thing in isAdmin)
@@ -40,7 +43,7 @@ namespace Fag_el_Gamous.Controllers
                 }
             }
 
-            var isResearcher = _context.AspNetUsers
+            var isResearcher = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach (var thing in isResearcher)
@@ -103,7 +106,7 @@ namespace Fag_el_Gamous.Controllers
             }
 
             var carbon2 = await _context.Carbon2
-                .Include(c => c.Burial)
+                .Include(c => c.BurialId)
                 .FirstOrDefaultAsync(m => m.CarbonId == id);
             if (carbon2 == null)
             {
@@ -117,7 +120,7 @@ namespace Fag_el_Gamous.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            var isAdmin = _context.AspNetUsers
+            var isAdmin = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach(var thing in isAdmin)
@@ -128,7 +131,7 @@ namespace Fag_el_Gamous.Controllers
                 }
             }
 
-            var isResearcher = _context.AspNetUsers
+            var isResearcher = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach (var thing in isResearcher)
@@ -166,7 +169,7 @@ namespace Fag_el_Gamous.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
-            var isAdmin = _context.AspNetUsers
+            var isAdmin = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach(var thing in isAdmin)
@@ -177,7 +180,7 @@ namespace Fag_el_Gamous.Controllers
                 }
             }
 
-            var isResearcher = _context.AspNetUsers
+            var isResearcher = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach (var thing in isResearcher)
@@ -243,7 +246,7 @@ namespace Fag_el_Gamous.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
-            var isAdmin = _context.AspNetUsers
+            var isAdmin = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach(var thing in isAdmin)
@@ -254,7 +257,7 @@ namespace Fag_el_Gamous.Controllers
                 }
             }
 
-            var isResearcher = _context.AspNetUsers
+            var isResearcher = id_context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
             foreach (var thing in isResearcher)
@@ -271,7 +274,7 @@ namespace Fag_el_Gamous.Controllers
             }
 
             var carbon2 = await _context.Carbon2
-                .Include(c => c.Burial)
+                .Include(c => c.BurialId)
                 .FirstOrDefaultAsync(m => m.CarbonId == id);
             if (carbon2 == null)
             {

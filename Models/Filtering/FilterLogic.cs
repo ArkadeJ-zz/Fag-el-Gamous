@@ -19,7 +19,6 @@ namespace Fag_el_Gamous.Models.Filtering
         }
 
 
-
         public IQueryable<MasterBurial2> GetMummies(Filter searchModel, int pageNum = 1, int pageSize = 10)
         {
 

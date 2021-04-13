@@ -17,7 +17,7 @@ namespace Fag_el_Gamous.Areas.Identity
         {
             builder.ConfigureServices((context, services) => {
                 services.AddDbContext<IdentityContext>(options =>
-                    options.UseNpgsql(
+                    options.UseSqlServer(
                         context.Configuration.GetConnectionString("IdentityContextConnection")));
 
                 services.AddDefaultIdentity<Fag_el_GamousUser>(options => options.SignIn.RequireConfirmedAccount = true)
