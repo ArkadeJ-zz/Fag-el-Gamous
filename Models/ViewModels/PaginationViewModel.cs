@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Fag_el_Gamous.Models.ViewModels
 {
+    //View model for pagination and filtering
     public class PaginationViewModel
     {
         public PageNumberingInfo PageNumberingInfo { get; set; }

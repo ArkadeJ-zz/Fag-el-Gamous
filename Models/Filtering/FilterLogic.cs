@@ -7,11 +7,10 @@ using Fag_el_Gamous.Models.ViewModels;
 
 namespace Fag_el_Gamous.Models.Filtering
 {
+    //FilterLogic for burial table
     public class FilterLogic
     {
         private waterbuffaloContext _mummyContext { get; set; }
-
-
 
         public FilterLogic(waterbuffaloContext mummyContext)
         {
@@ -22,7 +21,7 @@ namespace Fag_el_Gamous.Models.Filtering
 
         public IQueryable<MasterBurial2> GetMummies(Filter searchModel, int pageNum = 1, int pageSize = 10)
         {
-
+            //if you filter by certain things, make sure that only those things that match are displayed
             var result = _mummyContext.MasterBurial2.AsQueryable();
             if (searchModel != null)
             {

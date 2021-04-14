@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 namespace Fag_el_Gamous.Models
 {
+    //class for burial table in database
     public partial class MasterBurial2
     {
         public MasterBurial2()

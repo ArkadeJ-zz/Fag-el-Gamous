@@ -44,7 +44,7 @@ namespace Fag_el_Gamous
 
             //services.AddScoped<IMummyRepository, EFMummyRepository>();
 
-
+            //add waterbuffaloContext added with postgresConnection string
             services.AddDbContext<waterbuffaloContext>(options =>
             {
                 options.UseNpgsql(Configuration["ConnectionStrings:postgresConnection"]);
@@ -132,6 +132,7 @@ namespace Fag_el_Gamous
                 //    new { Controller = "MasterBurial2", action = "Index"}
                 //    );
 
+                //endpoints used for asp.net pagination
                 endpoints.MapControllerRoute(
                     "pageNum",
                     "MasterBurial2/{pageNum}",

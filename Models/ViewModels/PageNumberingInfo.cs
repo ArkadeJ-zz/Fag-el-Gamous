@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace Fag_el_Gamous.Models.ViewModels
 {
+    //View Model used for pagination
     public class PageNumberingInfo
     {
         public int NumItemsPerPage { get; set; }
