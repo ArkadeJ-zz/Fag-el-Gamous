@@ -43,9 +43,10 @@ namespace Fag_el_Gamous
             //    .Where(c => c.BurialId != null)
             //    .ToList();
 
-
+            //variable of type filterLogic
             var filterLogic = new FilterLogic(_context);
 
+            //queryModel that receives the return from the GetMummies method
             var queryModel = filterLogic.GetMummies(filter);
 
             //Page size upped in order for the jQuery table to function properly
@@ -53,7 +54,7 @@ namespace Fag_el_Gamous
 
             int skip = 0;
 
-
+            //Used for asp.net pagination
             if (pageNum - 1 < 0)
             { skip = 0; }
             else
@@ -74,7 +75,7 @@ namespace Fag_el_Gamous
             ViewBag.CurrentUser = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
-
+            //check to see if user is an admin
             var isAdmin = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
@@ -86,6 +87,7 @@ namespace Fag_el_Gamous
                 }
             }
 
+            //check to see if the user is a researcher
             var isResearcher = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
@@ -109,18 +111,13 @@ namespace Fag_el_Gamous
 
 
 
-
-
             return View(new PaginationViewModel
             {
                 //Carbons = ((IQueryable<Carbon2>)_context.Carbon2.Include(c => c.Burial).ToListAsync()),
 
-
-
+                //returning aspects of the ViewModel to be used in the view
                 Burials = (queryModel
-                    //.Where(c => c.BurialId == burialId || burialId == null)
                     .Skip(skip)
-                    //.Skip((pageNum - 1) * pageSize)
                     .Take(pageSize)
                     .ToList()),
 
@@ -136,7 +133,6 @@ namespace Fag_el_Gamous
                 UrlInfo = Request.QueryString.Value
             });
 
-            //return View(await _context.MasterBurial2.ToListAsync());
         }
 
         // GET: MasterBurial2/Details/5
@@ -173,6 +169,7 @@ namespace Fag_el_Gamous
             var isAdmin = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
+            //Check to see if the user is an admin
             foreach(var thing in isAdmin)
             {
                 if( thing.isAdmin == true )
@@ -181,6 +178,7 @@ namespace Fag_el_Gamous
                 }
             }
 
+            //check to see if the user is a researcher
             var isResearcher = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
@@ -218,6 +216,7 @@ namespace Fag_el_Gamous
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
+            //Check to see is user is admin
             var isAdmin = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
@@ -229,6 +228,7 @@ namespace Fag_el_Gamous
                 }
             }
 
+            //check to see if user is researcher
             var isResearcher = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
@@ -293,6 +293,7 @@ namespace Fag_el_Gamous
         [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
+            //Check to see if user is admin
             var isAdmin = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 

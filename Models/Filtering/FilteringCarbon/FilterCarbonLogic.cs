@@ -20,7 +20,7 @@ namespace Fag_el_Gamous.Models.Filtering.FilteringCarbon
 
         public IQueryable<Carbon2> GetCarbons(FilterCarbon searchModel, int pageNum = 1, int pageSize = 10)
         {
-
+            //if you filter by certain things, make sure that only those things that match are displayed
             var result = _mummyContext.Carbon2.AsQueryable();
             if (searchModel != null)
             {

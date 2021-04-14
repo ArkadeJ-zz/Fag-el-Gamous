@@ -19,6 +19,7 @@ namespace Fag_el_Gamous.Models
         {
         }
 
+        //DbSets for each table in the database
         public virtual DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
@@ -31,6 +32,7 @@ namespace Fag_el_Gamous.Models
         public virtual DbSet<Photos> Photos { get; set; }
         public virtual DbSet<Samples2> Samples2 { get; set; }
 
+        //the following code was all created with dbcontext scaffolding
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

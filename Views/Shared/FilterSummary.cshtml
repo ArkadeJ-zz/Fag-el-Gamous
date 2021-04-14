@@ -5,7 +5,7 @@
 }
 
 @model Fag_el_Gamous.Models.Filtering.Filter
-
+<!--partial view for burial table filter summary-->
 <form method="get" asp-controller="MasterBurial2" asp-action="Index" asp-route-pagenum="1">
     <label asp-for="BurialSubPlot" style="color:black">Burial Subplot</label>
     <select asp-for="BurialSubPlot" class="custom-select">
@@ -36,9 +36,6 @@
         <option value="U">Unknown</option>
     </select>
     <br />
-    @*<label asp-for="EstimateAge">Estimate Age</label>
-        <input asp-for="EstimateAge" />
-        <br />*@
     <label asp-for="HeadDirection" style="color:black">Head Direction</label>
     <select asp-for="HeadDirection" class="custom-select">
         <option value="">Select an option</option>

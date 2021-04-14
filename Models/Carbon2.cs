@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 namespace Fag_el_Gamous.Models
 {
+    //class for carbons table in database
     public partial class Carbon2
     {
         public int CarbonId { get; set; }

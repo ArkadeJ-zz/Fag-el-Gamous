@@ -37,7 +37,7 @@ namespace Fag_el_Gamous.Controllers
                 .ToList();
 
 
-
+            //check to see if user is admin
             var isAdmin = _context.AspNetUsers
                  .Where(c => c.UserName == User.Identity.Name);
 
@@ -49,6 +49,7 @@ namespace Fag_el_Gamous.Controllers
                 }
             }
 
+            //check to see if user is researcher
             var isResearcher = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
@@ -60,10 +61,12 @@ namespace Fag_el_Gamous.Controllers
                 }
             }
 
+            //pageSize raised to enable the use of jquery tables
             int pageSize = 10000;
 
             int skip = 0;
 
+            //used for asp.net pagination
             if (pageNum - 1 < 0)
             { skip = 0; }
             else
@@ -75,8 +78,6 @@ namespace Fag_el_Gamous.Controllers
 
             return View( new PaginationViewModel
             {
-                
-
 
                 Samples = (queryModel
                     //.Where(c => c.SampleId == sampleId || sampleId == null)
@@ -129,6 +130,7 @@ namespace Fag_el_Gamous.Controllers
         [Authorize]
         public IActionResult Create(int Id)
         {
+            //check to see if user is admin
             var isAdmin = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
@@ -140,6 +142,7 @@ namespace Fag_el_Gamous.Controllers
                 }
             }
 
+            //check to see if user is researcher
             var isResearcher = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
@@ -177,6 +180,7 @@ namespace Fag_el_Gamous.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
+            //check to see if user is admin
             var isAdmin = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
@@ -188,6 +192,7 @@ namespace Fag_el_Gamous.Controllers
                 }
             }
 
+            //check to see if user is researcher
             var isResearcher = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
@@ -253,6 +258,7 @@ namespace Fag_el_Gamous.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
+            //Check to see if user is admin
             var isAdmin = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
