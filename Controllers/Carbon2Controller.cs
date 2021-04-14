@@ -25,8 +25,10 @@ namespace Fag_el_Gamous.Controllers
         
         public async Task<IActionResult> Index(FilterCarbon filter, int? carbonId, int pageNum = 1)
         {
+            //variable of type FilterCarbonLogic
             var filterCarbonLogic = new FilterCarbonLogic(_context);
 
+            //queryModel that is the return from the GetCarbons method
             var queryModel = filterCarbonLogic.GetCarbons(filter);
             
             //creates a list of Burial with Burial IDs (so we can link them in the view)
@@ -39,7 +41,7 @@ namespace Fag_el_Gamous.Controllers
                 .Where(c => c.BurialId != null)
                 .ToList();
 
-
+            //Checks to see if user is admin
             var isAdmin = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
@@ -51,6 +53,7 @@ namespace Fag_el_Gamous.Controllers
                 }
             }
 
+            //Checks to see if user is researcher
             var isResearcher = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
@@ -78,10 +81,7 @@ namespace Fag_el_Gamous.Controllers
             {
                 //Carbons = ((IQueryable<Carbon2>)_context.Carbon2.Include(c => c.Burial).ToListAsync()),
 
-                
-
             Carbons = (queryModel
-                    //.Where(c => c.CarbonId == carbonId || carbonId == null)
                     .Skip(skip)
                     .Take(pageSize)
                     .ToList()),
@@ -95,13 +95,10 @@ namespace Fag_el_Gamous.Controllers
                         queryModel.Where(x => x.CarbonId == carbonId).Count())
                 },
 
+                //used for pagination while filtering
                 UrlInfo = Request.QueryString.Value
             });
 
-
-
-            //var waterbuffaloContext = _context.Carbon2.Include(c => c.Burial);
-            //return View(await waterbuffaloContext.ToListAsync());
         }
 
         // GET: Carbon2/Details/5
@@ -128,6 +125,7 @@ namespace Fag_el_Gamous.Controllers
         [Authorize]
         public IActionResult Create()
         {
+            //check to see if user is admin
             var isAdmin = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
@@ -139,6 +137,7 @@ namespace Fag_el_Gamous.Controllers
                 }
             }
 
+            //Check to see if user is researcher
             var isResearcher = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
@@ -177,6 +176,7 @@ namespace Fag_el_Gamous.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
+            //check to see if user is admin
             var isAdmin = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
@@ -188,6 +188,7 @@ namespace Fag_el_Gamous.Controllers
                 }
             }
 
+            //check to see if user is researcher
             var isResearcher = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
@@ -254,6 +255,7 @@ namespace Fag_el_Gamous.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
+            //Check to see if user is admin
             var isAdmin = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
@@ -265,6 +267,7 @@ namespace Fag_el_Gamous.Controllers
                 }
             }
 
+            //Check to see if user is researcher
             var isResearcher = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 

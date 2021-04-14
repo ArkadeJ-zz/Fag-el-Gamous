@@ -83,13 +83,16 @@ namespace Fag_el_Gamous.Controllers
         // GET: AspNetUsers/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
+            //Make a list of all admins
             ViewBag.AdminList = _context.AspNetUsers
                 .Where(c => c.isAdmin == true)
                 .ToList();
 
+            //check to see if user is admin
            var isAdmin = _context.AspNetUsers
                 .Where(c => c.UserName == User.Identity.Name);
 
+            //Check user permissions
             foreach(var thing in isAdmin)
             {
                 if( thing.isAdmin == true )
