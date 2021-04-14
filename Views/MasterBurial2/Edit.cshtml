@@ -16,94 +16,80 @@
         <div class="col-md-4">
             <form asp-action="Edit">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group" hidden>
-                    <label asp-for="LocConcat" class="control-label"></label>
-                    <input asp-for="LocConcat" class="form-control"/>
-                    <span asp-validation-for="LocConcat" class="text-danger"></span>
+                <div class="form-group" >
+                    <label asp-for="LocConcat" class="control-label" readonly></label>
+                    <input asp-for="LocConcat" class="form-control" readonly/>
+                    <span asp-validation-for="LocConcat" class="text-danger" readonly></span>
                 </div>
                 <input type="hidden" asp-for="BurialId" />
-                <i class="fas fa-exclamation-triangle " style="position: relative; top:25px; left:115px"></i>
                 <div class="form-group">
                     <label asp-for="BurialLocationNs" class="control-label"></label>
-                    <input asp-for="BurialLocationNs" class="form-control" required/>
+                    <input asp-for="BurialLocationNs" class="form-control" />
                     <span asp-validation-for="BurialLocationNs" class="text-danger"></span>
                 </div>
-                <i class="fas fa-exclamation-triangle " style="position: relative; top:25px; left:115px"></i>
                 <div class="form-group">
                     <label asp-for="LowPairNs" class="control-label"></label>
-                    <input asp-for="LowPairNs" class="form-control" required/>
+                    <input asp-for="LowPairNs" class="form-control" />
                     <span asp-validation-for="LowPairNs" class="text-danger"></span>
                 </div>
-                <i class="fas fa-exclamation-triangle " style="position: relative; top:25px; left:115px"></i>
                 <div class="form-group">
                     <label asp-for="HighPairNs" class="control-label"></label>
-                    <input asp-for="HighPairNs" class="form-control" required/>
+                    <input asp-for="HighPairNs" class="form-control" />
                     <span asp-validation-for="HighPairNs" class="text-danger"></span>
                 </div>
-                <i class="fas fa-exclamation-triangle " style="position: relative; top:25px; left:115px"></i>
                 <div class="form-group">
                     <label asp-for="BurialLocationEw" class="control-label"></label>
-                    <input asp-for="BurialLocationEw" class="form-control" required/>
+                    <input asp-for="BurialLocationEw" class="form-control" />
                     <span asp-validation-for="BurialLocationEw" class="text-danger"></span>
                 </div>
-                <i class="fas fa-exclamation-triangle " style="position: relative; top:25px; left:115px"></i>
                 <div class="form-group">
                     <label asp-for="LowPairEw" class="control-label"></label>
-                    <input asp-for="LowPairEw" class="form-control" required/>
+                    <input asp-for="LowPairEw" class="form-control" />
                     <span asp-validation-for="LowPairEw" class="text-danger"></span>
                 </div>
-                <i class="fas fa-exclamation-triangle " style="position: relative; top:25px; left:115px"></i>
                 <div class="form-group">
                     <label asp-for="HighPairEw" class="control-label"></label>
-                    <input asp-for="HighPairEw" class="form-control" required/>
+                    <input asp-for="HighPairEw" class="form-control" />
                     <span asp-validation-for="HighPairEw" class="text-danger"></span>
                 </div>
-                <i class="fas fa-exclamation-triangle " style="position: relative; top:25px; left:115px"></i>
                 <div class="form-group">
                     <label asp-for="BurialSubplot" class="control-label"></label>
-                    <input asp-for="BurialSubplot" class="form-control" required/>
+                    <input asp-for="BurialSubplot" class="form-control" />
                     <span asp-validation-for="BurialSubplot" class="text-danger"></span>
                 </div>
-                <i class="fas fa-exclamation-triangle " style="position: relative; top:25px; left:115px"></i>
                 <div class="form-group">
                     <label asp-for="BurialNumber" class="control-label"></label>
-                    <input asp-for="BurialNumber" class="form-control" required/>
+                    <input asp-for="BurialNumber" class="form-control" />
                     <span asp-validation-for="BurialNumber" class="text-danger"></span>
                 </div>
-                <i class="fas fa-exclamation-triangle " style="position: relative; top:25px; left:115px"></i>
                 <div class="form-group">
                     <label asp-for="BurialDepth" class="control-label"></label>
-                    <input asp-for="BurialDepth" class="form-control" required/>
+                    <input asp-for="BurialDepth" class="form-control" />
                     <span asp-validation-for="BurialDepth" class="text-danger"></span>
                 </div>
-                <i class="fas fa-exclamation-triangle " style="position: relative; top:25px; left:115px"></i>
                 <div class="form-group">
                     <label asp-for="SouthToHead" class="control-label"></label>
-                    <input asp-for="SouthToHead" class="form-control" required/>
+                    <input asp-for="SouthToHead" class="form-control" />
                     <span asp-validation-for="SouthToHead" class="text-danger"></span>
                 </div>
-                <i class="fas fa-exclamation-triangle " style="position: relative; top:25px; left:115px"></i>
                 <div class="form-group">
                     <label asp-for="SouthToFeet" class="control-label"></label>
-                    <input asp-for="SouthToFeet" class="form-control" required/>
+                    <input asp-for="SouthToFeet" class="form-control" />
                     <span asp-validation-for="SouthToFeet" class="text-danger"></span>
                 </div>
-                <i class="fas fa-exclamation-triangle " style="position: relative; top:25px; left:115px"></i>
                 <div class="form-group">
                     <label asp-for="WestToHead" class="control-label"></label>
-                    <input asp-for="WestToHead" class="form-control" required/>
+                    <input asp-for="WestToHead" class="form-control" />
                     <span asp-validation-for="WestToHead" class="text-danger"></span>
                 </div>
-                <i class="fas fa-exclamation-triangle " style="position: relative; top:25px; left:115px"></i>
                 <div class="form-group">
                     <label asp-for="WestToFeet" class="control-label"></label>
-                    <input asp-for="WestToFeet" class="form-control" required/>
+                    <input asp-for="WestToFeet" class="form-control" />
                     <span asp-validation-for="WestToFeet" class="text-danger"></span>
                 </div>
-                <i class="fas fa-exclamation-triangle " style="position: relative; top:25px; left:115px"></i>
                 <div class="form-group">
                     <label asp-for="LengthOfRemains" class="control-label"></label>
-                    <input asp-for="LengthOfRemains" class="form-control" required/>
+                    <input asp-for="LengthOfRemains" class="form-control" />
                     <span asp-validation-for="LengthOfRemains" class="text-danger"></span>
                 </div>
                 <div class="form-group">
