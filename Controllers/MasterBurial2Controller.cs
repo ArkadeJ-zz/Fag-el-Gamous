@@ -34,6 +34,11 @@ namespace Fag_el_Gamous
                 .Where(c => c.BurialId != null)
                 .ToList();
 
+
+            ViewBag.PhotoBurialList = _context.Photos
+                .Where(p => p.Burial != null)
+                .ToList();
+
             //ViewBag.Sample = _context.Samples2
             //    .Where(c => c.BurialId != null)
             //    .ToList();
@@ -143,6 +148,12 @@ namespace Fag_el_Gamous
                 return NotFound();
             }
 
+
+            ViewBag.PhotoBurialList = _context.Photos
+                .Where(p => p.Burial != null)
+                .ToList();
+
+
             var masterBurial2 = await _context.MasterBurial2
                 .FirstOrDefaultAsync(m => m.BurialId == id);
             if (masterBurial2 == null)
@@ -193,6 +204,9 @@ namespace Fag_el_Gamous
         {
             if (ModelState.IsValid)
             {
+                masterBurial2.LocConcat = ($"{masterBurial2.BurialLocationNs} {masterBurial2.LowPairNs} / {masterBurial2.HighPairNs} {masterBurial2.BurialLocationEw} {masterBurial2.LowPairEw} / {masterBurial2.HighPairEw} {masterBurial2.BurialSubplot} #{masterBurial2.BurialNumber}");
+
+
                 _context.Add(masterBurial2);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

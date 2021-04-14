@@ -13,7 +13,6 @@
 
 
 
-
 <div id="accordion">
     @*Tips accordion*@
     <div class="card bg-light">
@@ -92,7 +91,7 @@ else
 <br />
 <br />
 
-    <div id="loaderDiv" class="text-center"><i class="fas fa-circle-notch fa-spin fa-2x"></i><p>Excavating Mummies...</p></div>
+<div id="loaderDiv" class="text-center"><i class="fas fa-circle-notch fa-spin fa-2x"></i><p>Excavating Mummies...</p></div>
 
 
 <div id="tableDiv" style="display:none" class="table-responsive-xl">
@@ -160,6 +159,18 @@ else
                     </td>
                     <td>
                         <a asp-action="Details" asp-route-id="@item.BurialId"><span class="material-icons">description</span> </a>
+
+
+                        @foreach (var item5 in ViewBag.PhotoBurialList)
+                         {
+                            @if (item.BurialId == item5.BurialId)
+                             {
+                                <a asp-action="Details" asp-route-id="@item.BurialId"><span class="material-icons">image</span> </a>
+                             }
+                         }
+
+
+
                     </td>
                     <td>
                         @if ((item.LowPairNs == null && item.LowPairEw == null) || item.LocConcat == "#VALUE!" || item.LocConcat == "#REF!" || item.LocConcat == "null")
@@ -334,7 +345,7 @@ else
                     {
                         "searchable": false,
                         "orderable": false,
-                        targets: [2, 3, 12, 13],
+                        targets: [ 3, 12, 13],
                     },
                     {
                         "className": "text-left",
