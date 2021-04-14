@@ -263,11 +263,16 @@ namespace Fag_el_Gamous
         {
             if (id != masterBurial2.BurialId)
             {
+                
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
+                //injects the correctly made LocConcat
+                masterBurial2.LocConcat = ($"{masterBurial2.BurialLocationNs} {masterBurial2.LowPairNs} / {masterBurial2.HighPairNs} {masterBurial2.BurialLocationEw} {masterBurial2.LowPairEw} / {masterBurial2.HighPairEw} {masterBurial2.BurialSubplot} #{masterBurial2.BurialNumber}");
+
+
                 try
                 {
                     _context.Update(masterBurial2);

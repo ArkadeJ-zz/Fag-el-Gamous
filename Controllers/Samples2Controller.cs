@@ -167,6 +167,11 @@ namespace Fag_el_Gamous.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Injects correctly made LocConcat
+                samples2.LocConcat = ($"{samples2.NS} {samples2.LowNs} / {samples2.HighNs} {samples2.EW} {samples2.LowEw} / {samples2.HighEw} {samples2.Area} #{samples2.BurialNum}");
+
+
+
                 //samples2.BurialId = ViewBag.Id;
                 _context.Add(samples2);
                 await _context.SaveChangesAsync();
@@ -232,6 +237,9 @@ namespace Fag_el_Gamous.Controllers
 
             if (ModelState.IsValid)
             {
+                //Injects correctly made LocConcat
+                samples2.LocConcat = ($"{samples2.NS} {samples2.LowNs} / {samples2.HighNs} {samples2.EW} {samples2.LowEw} / {samples2.HighEw} {samples2.Area} #{samples2.BurialNum}");
+
                 try
                 {
                     _context.Update(samples2);

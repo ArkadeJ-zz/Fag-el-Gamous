@@ -164,6 +164,12 @@ namespace Fag_el_Gamous.Controllers
         {
             if (ModelState.IsValid)
             {
+                //injects the correctly made LocConcat
+                carbon2.LocConcat = ($"{carbon2.Ns} {carbon2.LocationNs} / {carbon2.LocationNs}+10 {carbon2.Ew} {carbon2.LocationEw} / {carbon2.LocationEw}+10 {carbon2.BurialSubplot} #{carbon2.BurialNum}");
+
+
+
+
                 _context.Add(carbon2);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -229,6 +235,10 @@ namespace Fag_el_Gamous.Controllers
 
             if (ModelState.IsValid)
             {
+                //injects the correctly made LocConcat
+                carbon2.LocConcat = ($"{carbon2.Ns} {carbon2.LocationNs} / {carbon2.LocationNs}+10 {carbon2.Ew} {carbon2.LocationEw} / {carbon2.LocationEw}+10 {carbon2.BurialSubplot} #{carbon2.BurialNum}");
+
+
                 try
                 {
                     _context.Update(carbon2);

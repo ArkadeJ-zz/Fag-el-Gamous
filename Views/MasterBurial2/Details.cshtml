@@ -20,24 +20,11 @@
             @foreach (var pic in ViewBag.PhotoBurialList)
             {
 
-
                 @if (Model.BurialId == pic.BurialId)
                 {
-
                     <div class="col-md-6 col-lg-4 item">
                         <a class="lightbox" href="@pic.UrlLink">
                             <img class="img-fluid image scale-on-hover" style="padding: 20px" src="@pic.UrlLink" alt="Picture for Burial ID: @pic.BurialId">
-                        </a>
-                    </div>
-
-                }
-                else if(pic.PhotoId == 1)
-                {
-                    
-                    
-                    <div class="col-md-6 col-lg-4 item">
-                        <a class="lightbox">
-                            <img class="img-fluid image scale-on-hover" style="padding: 20px" src="~/img/noImage.jpg" alt="Picture for Burial ID: @pic.BurialId">
                         </a>
                     </div>
                 }

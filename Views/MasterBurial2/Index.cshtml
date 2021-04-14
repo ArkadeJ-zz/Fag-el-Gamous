@@ -125,7 +125,7 @@ else
                     Hair Color
                 </th>
                 <th>
-                    Burial Situation
+                    Notes
                 </th>
                 <th></th>
                 <th></th>
@@ -271,16 +271,33 @@ else
                     </td>
                     <td>
                         @*@if (item.BurialSituation == null || item.BurialSituation.Length < 20)
+        {
+            @Html.Raw("See details...")
+        }
+        else
+        {
+            @item.BurialSituation.Substring(0, 19) @Html.Raw("...")
+
+
+        }*@
+                        @if (item.BurialSituation == null || item.BurialSituation == "")
+                        {
+                            @if (item.OsteologyNotes == null || item.OsteologyNotes == "")
                             {
-                                @Html.Raw("See details...")
+
+                                @Html.Raw("See Details...")
                             }
                             else
                             {
-                                @item.BurialSituation.Substring(0, 19) @Html.Raw("...")
+                                @item.OsteologyNotes
+                            }
 
-
-                            }*@
-                        @item.BurialSituation
+                        }
+                        else
+                        {
+                            @item.BurialSituation
+                        }
+                       
                     </td>
                     <td>
                         @if (ViewData["isAdmin"] is true || ViewData["isResearcher"] is true)
