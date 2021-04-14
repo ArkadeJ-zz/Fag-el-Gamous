@@ -18,11 +18,11 @@
             <form asp-action="Edit">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="SampleId" />
-                <div class="form-group" >
+                @*<div class="form-group" >
                     <label asp-for="BurialId" class="control-label"></label>
                     <select asp-for="BurialId" class="form-control"></select>
                     <span asp-validation-for="BurialId" class="text-danger"></span>
-                </div>
+                </div>*@
                 <div class="form-group" >
                     <label asp-for="LocConcat" class="control-label" readonly></label>
                     <input asp-for="LocConcat" class="form-control" readonly/>
